@@ -16,6 +16,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/nuszuoyi.png" width="200px">
 
 [[github](https://github.com/nuszuoyi)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/zuoyi.md)]
 
 * Role: Developer
