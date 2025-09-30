@@ -11,9 +11,19 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Zuo Yi
+
+<img src="images/nuszuoyi.png" width="200px">
+
+[[github](https://github.com/nuszuoyi)]
+[[portfolio](team/zuoyi.md)]
+
+* Role: Developer
+
 ### Nicholas Lim
 
 <img src="images/nicholaslimzixian.png" width="200px">
 
 [[github](https://github.com/nicholaslimzixian)]
 [[portfolio](team/nicholaslimzixian.md)]
+
