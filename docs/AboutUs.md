@@ -19,3 +19,21 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/zuoyi.md)]
 
 * Role: Developer
+
+### Nicholas Lim
+
+<img src="images/nicholaslimzixian.png" width="200px">
+
+[[github](https://github.com/nicholaslimzixian)]
+[[portfolio](team/nicholaslimzixian.md)]
+
+### David Joshua Sudartha
+
+<img src="images/djsudartha.png" width="200px">
+
+[[github](https://github.com/DJsudartha)]
+[[portfolio](team/djsudartha.md)]
+
+* Role: Developer
+=======
+
