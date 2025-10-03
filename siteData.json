@@ -7,11 +7,9 @@
       "headings": {
         "about-us": "About Us",
         "project-team": "Project team",
-        "john-doe": "John Doe",
-        "jane-doe": "Jane Doe",
-        "johnny-doe": "Johnny Doe",
-        "jean-doe": "Jean Doe",
-        "james-doe": "James Doe"
+        "zuo-yi": "Zuo Yi",
+        "nicholas-lim": "Nicholas Lim",
+        "david-joshua-sudartha": "David Joshua Sudartha"
       },
       "headingKeywords": {}
     },
@@ -136,10 +134,26 @@
       "headingKeywords": {}
     },
     {
-      "src": "team/johndoe.md",
-      "title": "John Doe's Project Portfolio Page",
+      "src": "team/djsudartha.md",
+      "title": "David's Project Portfolio Page",
+      "headings": {
+        "project-campusbook": "Project: CampusBook"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/nicholaslimzixian.md",
+      "title": "Nicholas Lim's Project Portfolio Page",
       "headings": {
         "project-addressbook-level-3": "Project: AddressBook Level 3"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/zuoyi.md",
+      "title": "Zuo Yi's Project Portfolio Page",
+      "headings": {
+        "project-campusbook": "Project: CampusBook"
       },
       "headingKeywords": {}
     }
