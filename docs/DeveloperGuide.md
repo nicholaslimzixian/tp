@@ -288,14 +288,27 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​                                   | I want to …​                                                       | So that I can…​                                                                    |
+|----------|-------------------------------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| `* * *`  | new user                                  | see usage instructions                                             | refer to instructions when I forget how to use the App                             |
+| `* * *`  | new user                                  | select my faculty                                                  | the default admin contacts are preloaded                                           |
+| `* * *`  | user                                      | add a new person                                                   | keep a list of contacts of people in school                                        |
+| `* * *`  | user                                      | delete a person                                                    | remove entries that I no longer need                                               |
+| `* * *`  | user                                      | list contacts                                                      | view all my saved contacts                                                         |
+| `* * *`  | user                                      | find a person by name                                              | locate details of persons without having to go through the entire list             |
+| `* * *`  | user                                      | tag contacts                                                       | filter and find people by tag                                                      |
+| `* *`    | user                                      | hide private contact details                                       | minimize chance of someone else seeing them by accident                            |
+| `* *`    | user                                      | see logs of changes                                                | review my past edits and restore previous information if I made a mistake          |
+| `* *`    | frequent user                             | use command aliases                                                | operate faster by typing less                                                      |
+| `* *`    | returning user                            | have command history navigation                                    | reuse or tweak previous commands quickly                                           |
+| `* *`    | neat student                              | color-code tags or contacts                                        | visually distinguish categories easily                                             |
+| `*`      | user                                      | see the last update time of a contact                              | know how recent the information is                                                 |
+| `*`      | user with many people in the address book | sort persons by a certain field                                    | locate a person easily                                                             |
+| `*`      | frequent user                             | Add favorite contacts and let them be seen at the top of the list  | easily access the most frequently used contacts without finding them               |
+| `*`      | cautious user                             | detect duplicates                                                  | not accidentally create multiple entries for the same person                       |
+| `*`      | cautious user                             | be able to preview all my changes before saving                    | double-check all my changes                                                        |
+| `*`      | efficient user                            | have tab autocomplete                                              | easily finish typing the commands without having to type the full command manually |
+| `*`      | efficient user                            | be able to edit batches of profiles at the same time               | add/change similar data very fast                                                  |
 
 *{More to be added}*
 
@@ -426,6 +439,105 @@ Guarantees: Person entries will be cleared
 * 2a. The list is empty.
 
   Use case ends.
+
+### UC06: Tag a person
+
+Guarantees: Tags will only be added if they follow a valid format (no spaces, alphanumeric, e.g. `friend`, `CS2103T`).
+
+**MSS**
+
+1. User requests to list persons
+2. CampusBook shows a list of persons
+3. User requests to tag a specific person in the list
+4. CampusBook adds the tag(s) to the person
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.  
+ Use case ends.
+
+* 3a. The given tag is invalid (e.g. contains spaces or special characters).  
+  * 3a1. CampusBook shows an error message.  
+    Use case resumes at step 2.
+
+---
+
+### UC07: Mark or unmark a person as favorite
+
+Guarantees: Favorite contacts will always appear at the top of the contact list when listed.
+
+**MSS**
+
+1. User requests to mark a specific person as favorite
+2. CampusBook marks that person as favorite and updates the display order
+
+Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid.  
+  * 1a1. CampusBook shows an error message.  
+    Use case resumes at step 1.
+
+* 2a. The person is already a favorite.  
+  * 2a1. CampusBook shows “This person is already marked as favorite.”  
+    Use case ends.
+
+---
+
+### UC08: Export contacts to CSV
+
+Guarantees: The exported file will contain all current contacts in a valid CSV format.
+
+**MSS**
+
+1. User requests to export contacts
+2. CampusBook asks for confirmation or filename
+3. User confirms
+4. CampusBook exports all contacts to the specified CSV file
+
+Use case ends.
+
+---
+
+### UC09: Import contacts from CSV
+
+Guarantees: Only valid contacts will be imported. Invalid rows are skipped with warnings.
+
+**MSS**
+
+1. User requests to import contacts from a file
+2. CampusBook validates the file format
+3. CampusBook imports all valid contacts and ignores invalid ones
+
+Use case ends.
+
+**Extensions**
+
+* 2a. File is missing or corrupted.  
+  * 2a1. CampusBook shows an error message.  
+    Use case ends.
+
+* 3a. File contains duplicate persons.  
+  * 3a1. CampusBook skips duplicates and logs a warning.  
+    Use case ends.
+
+---
+
+**Extensions**
+
+* 2a. The given filename is invalid.  
+  * 2a1. CampusBook shows an error message.  
+    Use case resumes at step 2.
+
+* 4a. Write operation fails (e.g. lack of permissions).  
+  * 4a1. CampusBook shows “Export failed. Please check file permissions.”  
+    Use case ends.
+
+---
+
 
 ### Non-Functional Requirements
 #### Environment & Portability ####
