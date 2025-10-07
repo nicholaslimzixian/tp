@@ -507,7 +507,8 @@ Use case ends.
 
 **UC09: Import contacts from CSV**
 
-Guarantees: Default administrative contacts for the selected faculty will be preloaded successfully.
+Guarantees: Only valid contacts will be imported. Invalid rows are skipped with warnings.
+Precondition: The imported file is a valid CSV file that follows the format.
 
 **MSS**
 
