@@ -307,7 +307,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | frequent user                             | Add favorite contacts and let them be seen at the top of the list | access the most frequently used contacts without finding them               |
 | `*`      | cautious user                             | detect duplicates                                                 | prevent creating multiple entries for the same person                       |
 | `*`      | cautious user                             | be able to preview all my changes before saving                   | double-check all my changes                                                 |
-| `*`      | efficient user                            | have tab autocomplete                                             | finish typing the commands without having to type the full command manually |
+| `*`      | efficient user                            | have tab autocomplete                                             | type the commands easily, without having to type the full command manually  |
 | `*`      | efficient user                            | be able to edit batches of profiles at the same time              | add the same data to several people at the same time                        |
 
 *{More to be added}*
@@ -442,7 +442,7 @@ Guarantees: Person entries will be cleared
 
 ### UC06: Tag a person
 
-Guarantees: Tags will only be added if they follow a valid format (no spaces, alphanumeric, e.g. `friend`, `CS2103T`).
+Guarantees: Tags will only be added if they follow a valid format (no spaces, alphanumeric, e.g. `friend`, `professor`).
 
 **MSS**
 
@@ -523,18 +523,6 @@ Use case ends.
 
 * 3a. File contains duplicate persons.  
   * 3a1. CampusBook skips duplicates and logs a warning.  
-    Use case ends.
-
----
-
-**Extensions**
-
-* 2a. The given filename is invalid.  
-  * 2a1. CampusBook shows an error message.  
-    Use case resumes at step 2.
-
-* 4a. Write operation fails (e.g. lack of permissions).  
-  * 4a1. CampusBook shows an error message. 
     Use case ends.
 
 ---
