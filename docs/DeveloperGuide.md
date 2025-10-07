@@ -288,27 +288,27 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                   | I want to …​                                                       | So that I can…​                                                                    |
-|----------|-------------------------------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| `* * *`  | new user                                  | see usage instructions                                             | refer to instructions when I forget how to use the App                             |
-| `* * *`  | new user                                  | select my faculty                                                  | the default admin contacts are preloaded                                           |
-| `* * *`  | user                                      | add a new person                                                   | keep a list of contacts of people in school                                        |
-| `* * *`  | user                                      | delete a person                                                    | remove entries that I no longer need                                               |
-| `* * *`  | user                                      | list contacts                                                      | view all my saved contacts                                                         |
-| `* * *`  | user                                      | find a person by name                                              | locate details of persons without having to go through the entire list             |
-| `* * *`  | user                                      | tag contacts                                                       | filter and find people by tag                                                      |
-| `* *`    | user                                      | hide private contact details                                       | minimize chance of someone else seeing them by accident                            |
-| `* *`    | user                                      | see logs of changes                                                | review my past edits and restore previous information if I made a mistake          |
-| `* *`    | frequent user                             | use command aliases                                                | operate faster by typing less                                                      |
-| `* *`    | returning user                            | have command history navigation                                    | reuse or tweak previous commands quickly                                           |
-| `* *`    | neat student                              | color-code tags or contacts                                        | visually distinguish categories easily                                             |
-| `*`      | user                                      | see the last update time of a contact                              | know how recent the information is                                                 |
-| `*`      | user with many people in the address book | sort persons by a certain field                                    | locate a person easily                                                             |
-| `*`      | frequent user                             | Add favorite contacts and let them be seen at the top of the list  | easily access the most frequently used contacts without finding them               |
-| `*`      | cautious user                             | detect duplicates                                                  | not accidentally create multiple entries for the same person                       |
-| `*`      | cautious user                             | be able to preview all my changes before saving                    | double-check all my changes                                                        |
-| `*`      | efficient user                            | have tab autocomplete                                              | easily finish typing the commands without having to type the full command manually |
-| `*`      | efficient user                            | be able to edit batches of profiles at the same time               | add/change similar data very fast                                                  |
+| Priority | As a …​                                   | I want to …​                                                      | So that I can…​                                                             |
+|----------|-------------------------------------------|-------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `* * *`  | new user                                  | see usage instructions                                            | refer to instructions when I forget how to use the App                      |
+| `* * *`  | new user                                  | select my faculty                                                 | preload faculty admin contacts                                              |
+| `* * *`  | user                                      | add a new person                                                  | keep a list of contacts of people in school                                 |
+| `* * *`  | user                                      | delete a person                                                   | remove entries that I no longer need                                        |
+| `* * *`  | user                                      | list contacts                                                     | view all my saved contacts                                                  |
+| `* * *`  | user                                      | find a person by name                                             | locate details of persons without having to go through the entire list      |
+| `* * *`  | user                                      | tag contacts                                                      | filter and find people by tag                                               |
+| `* *`    | user                                      | hide private contact details                                      | minimize chance of someone else seeing them by accident                     |
+| `* *`    | user                                      | see logs of changes                                               | review my past edits and restore previous information if I made a mistake   |
+| `* *`    | frequent user                             | use command aliases                                               | operate faster by typing less                                               |
+| `* *`    | returning user                            | have command history navigation                                   | reuse or tweak previous commands quickly                                    |
+| `* *`    | neat student                              | color-code tags or contacts                                       | visually distinguish categories easily                                      |
+| `*`      | user                                      | see the last update time of a contact                             | know how recent the information is                                          |
+| `*`      | user with many people in the address book | sort persons by a certain field                                   | locate a person easily                                                      |
+| `*`      | frequent user                             | Add favorite contacts and let them be seen at the top of the list | access the most frequently used contacts without finding them               |
+| `*`      | cautious user                             | detect duplicates                                                 | prevent creating multiple entries for the same person                       |
+| `*`      | cautious user                             | be able to preview all my changes before saving                   | double-check all my changes                                                 |
+| `*`      | efficient user                            | have tab autocomplete                                             | finish typing the commands without having to type the full command manually |
+| `*`      | efficient user                            | be able to edit batches of profiles at the same time              | add the same data to several people at the same time                        |
 
 *{More to be added}*
 
@@ -482,7 +482,7 @@ Use case ends.
     Use case resumes at step 1.
 
 * 2a. The person is already a favorite.  
-  * 2a1. CampusBook shows “This person is already marked as favorite.”  
+  * 2a1. CampusBook shows a message to show the person is already marked as favourite  
     Use case ends.
 
 ---
@@ -505,6 +505,7 @@ Use case ends.
 ### UC09: Import contacts from CSV
 
 Guarantees: Only valid contacts will be imported. Invalid rows are skipped with warnings.
+Precondition: The imported file is a valid CSV file that follows the format.
 
 **MSS**
 
@@ -533,7 +534,7 @@ Use case ends.
     Use case resumes at step 2.
 
 * 4a. Write operation fails (e.g. lack of permissions).  
-  * 4a1. CampusBook shows “Export failed. Please check file permissions.”  
+  * 4a1. CampusBook shows an error message. 
     Use case ends.
 
 ---
