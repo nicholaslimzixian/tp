@@ -310,8 +310,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | efficient user                            | have tab autocomplete                                             | type the commands easily, without having to type the full command manually  |
 | `*`      | efficient user                            | be able to edit batches of profiles at the same time              | add the same data to several people at the same time                        |
 
-*{More to be added}*
-
 ### Use cases
 
 (For all use cases below, the **System** is the `CampusBook` and the **Actor** is the `user`, unless specified otherwise)
@@ -437,10 +435,10 @@ Guarantees: Person entries will be cleared
 **Extensions**
 
 * 2a. The list is empty.
-
   Use case ends.
 
-### UC06: Tag a person
+
+**UC06: Tag a person**
 
 Guarantees: Tags will only be added if they follow a valid format (no spaces, alphanumeric, e.g. `friend`, `professor`).
 
@@ -462,9 +460,8 @@ Use case ends.
   * 3a1. CampusBook shows an error message.  
     Use case resumes at step 2.
 
----
 
-### UC07: Mark or unmark a person as favorite
+**UC07: Mark or unmark a person as favorite**
 
 Guarantees: Favorite contacts will always appear at the top of the contact list when listed.
 
@@ -485,31 +482,37 @@ Use case ends.
   * 2a1. CampusBook shows a message to show the person is already marked as favourite  
     Use case ends.
 
----
 
-### UC08: Export contacts to CSV
+**UC08: Export contacts to CSV**
 
 Guarantees: The exported file will contain all current contacts in a valid CSV format.
 
 **MSS**
 
 1. User requests to export contacts
-2. CampusBook asks for confirmation or filename
-3. User confirms
-4. CampusBook exports all contacts to the specified CSV file
+2. CampusBook retrieves all information and formats the text into a CSV file
+3. Downloads the CSV file on the user's computer
 
 Use case ends.
 
----
+**Extensions**
 
-### UC09: Import contacts from CSV
+* 1a. User cancels the export operation*
+  * 1a1. CampusBook aborts the export process.
+    Use case ends.
+
+* 2a. File cannot be created or written (e.g., invalid path or permission error) 
+* 2b. CampusBook notifies the user that the export failed and provides the error message.
+
+
+**UC09: Import contacts from CSV**
 
 Guarantees: Only valid contacts will be imported. Invalid rows are skipped with warnings.
 Precondition: The imported file is a valid CSV file that follows the format.
 
 **MSS**
 
-1. User requests to import contacts from a file
+1. User requests to import contacts from a CSV file
 2. CampusBook validates the file format
 3. CampusBook imports all valid contacts and ignores invalid ones
 
@@ -525,9 +528,30 @@ Use case ends.
   * 3a1. CampusBook skips duplicates and logs a warning.  
     Use case ends.
 
+**UC10: Select a faculty**
+TODO
+
+
+**UC11: View command history**
+TODO
+
 ---
 
+**Alternate Scenarios**
 
+*3a.* User requests to clear the command history after viewing.  
+ 3a1. CampusBook confirms the action.  
+ 3a2. Upon confirmation, command history is cleared.  
+ Use case ends.
+
+---
+
+**Notes / Preconditions**
+
+- User must have previously executed at least one command (except in *2a*).
+- Command history is session-based and not saved after application exit (unless specified in future extensions).
+
+--- 
 ### Non-Functional Requirements
 #### Environment & Portability ####
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
