@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.exceptions.ParseException;
+import main.java.seedu.address.model.faculty.Faculty;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_FACULTY = "Engineering123";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_FACULTY_1 = "Engineering";
+    private static final String VALID_FACULTY_2 = "Science";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -192,5 +196,51 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseFaculty_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFaculty(null));
+    }
+
+    @Test
+    public void parseFaculty_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFaculty(INVALID_FACULTY));
+    }
+
+    @Test
+    public void parseFaculty_validValueWithoutWhitespace_returnsFaculty() throws Exception {
+        Faculty expectedFaculty = new Faculty(VALID_FACULTY_1);
+        assertEquals(expectedFaculty, ParserUtil.parseFaculty(VALID_FACULTY_1));
+    }
+
+    @Test
+    public void parseFaculty_validValueWithWhitespace_returnsTrimmedFaculty() throws Exception {
+        String facultyWithWhitespace = WHITESPACE + VALID_FACULTY_1 + WHITESPACE;
+        Faculty expectedFaculty = new Faculty(VALID_FACULTY_1);
+        assertEquals(expectedFaculty, ParserUtil.parseFaculty(facultyWithWhitespace));
+    }
+
+    @Test
+    public void parseFaculties_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFaculties(null));
+    }
+
+    @Test
+    public void parseFaculties_collectionWithInvalidFaculties_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFaculties(Arrays.asList(VALID_FACULTY_1, INVALID_FACULTY)));
+    }
+
+    @Test
+    public void parseFaculties_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseFaculties(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseFaculties_collectionWithValidFaculties_returnsFacultySet() throws Exception {
+        Set<Faculty> actualFacultySet = ParserUtil.parseFaculties(Arrays.asList(VALID_FACULTY_1, VALID_FACULTY_2));
+        Set<Faculty> expectedFacultySet = new HashSet<Faculty>(Arrays.asList(new Faculty(VALID_FACULTY_1), new Faculty(VALID_FACULTY_2)));
+
+        assertEquals(expectedFacultySet, actualFacultySet);
     }
 }
