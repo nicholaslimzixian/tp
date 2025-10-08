@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,7 +13,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import main.java.seedu.address.model.faculty.Faculty;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.faculty.Faculty;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -228,7 +228,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseFaculties_collectionWithInvalidFaculties_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseFaculties(Arrays.asList(VALID_FACULTY_1, INVALID_FACULTY)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseFaculties(
+            Arrays.asList(VALID_FACULTY_1, INVALID_FACULTY)));
     }
 
     @Test
@@ -239,7 +240,8 @@ public class ParserUtilTest {
     @Test
     public void parseFaculties_collectionWithValidFaculties_returnsFacultySet() throws Exception {
         Set<Faculty> actualFacultySet = ParserUtil.parseFaculties(Arrays.asList(VALID_FACULTY_1, VALID_FACULTY_2));
-        Set<Faculty> expectedFacultySet = new HashSet<Faculty>(Arrays.asList(new Faculty(VALID_FACULTY_1), new Faculty(VALID_FACULTY_2)));
+        Set<Faculty> expectedFacultySet = new HashSet<Faculty>(
+            Arrays.asList(new Faculty(VALID_FACULTY_1), new Faculty(VALID_FACULTY_2)));
 
         assertEquals(expectedFacultySet, actualFacultySet);
     }

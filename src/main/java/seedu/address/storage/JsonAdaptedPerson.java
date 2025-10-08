@@ -76,7 +76,7 @@ class JsonAdaptedPerson {
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         final List<Faculty> personFaculties = new ArrayList<>();
-        
+
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
         }

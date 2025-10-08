@@ -4,8 +4,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import main.java.seedu.address.model.faculty.Faculty;
-
 public class FacultyTest {
 
     @Test

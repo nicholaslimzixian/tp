@@ -5,8 +5,8 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.FACULTY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.FACULTY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.FACULTY_DESC_COMPUTING;
+import static seedu.address.logic.commands.CommandTestUtil.FACULTY_DESC_SCIENCE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FACULTY_DESC;
@@ -20,8 +20,8 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_COMPUTING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_SCIENCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -40,11 +40,11 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import main.java.seedu.address.model.faculty.Faculty;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.faculty.Faculty;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -110,9 +110,12 @@ public class EditCommandParserTest {
         // while parsing {@code PREFIX_FACULTY} alone will reset the faculties of the {@code
         // Person} being edited,
         // parsing it together with a valid faculty results in error
-        assertParseFailure(parser, "1" + FACULTY_DESC_AMY + FACULTY_DESC_BOB + FACULTY_EMPTY, Faculty.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + FACULTY_DESC_AMY + FACULTY_EMPTY + FACULTY_DESC_BOB, Faculty.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + FACULTY_EMPTY + FACULTY_DESC_AMY + FACULTY_DESC_BOB, Faculty.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + FACULTY_DESC_SCIENCE
+            + FACULTY_DESC_COMPUTING + FACULTY_EMPTY, Faculty.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + FACULTY_DESC_SCIENCE + FACULTY_EMPTY
+            + FACULTY_DESC_COMPUTING, Faculty.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + FACULTY_EMPTY + FACULTY_DESC_SCIENCE
+            + FACULTY_DESC_COMPUTING, Faculty.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
@@ -122,12 +125,13 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND + FACULTY_DESC_BOB
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND + FACULTY_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND + FACULTY_DESC_COMPUTING
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND + FACULTY_DESC_SCIENCE;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withFaculties(VALID_FACULTY_BOB, VALID_FACULTY_AMY).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+                .withFaculties(VALID_FACULTY_COMPUTING, VALID_FACULTY_SCIENCE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -179,8 +183,8 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // faculties
-        userInput = targetIndex.getOneBased() + FACULTY_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withFaculties(VALID_FACULTY_AMY).build();
+        userInput = targetIndex.getOneBased() + FACULTY_DESC_SCIENCE;
+        descriptor = new EditPersonDescriptorBuilder().withFaculties(VALID_FACULTY_SCIENCE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -204,7 +208,7 @@ public class EditCommandParserTest {
         // multiple valid fields repeated
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + FACULTY_DESC_AMY + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+                + FACULTY_DESC_SCIENCE + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS));
