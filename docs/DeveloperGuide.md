@@ -299,12 +299,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                      | tag contacts                                                      | filter and find people by tag                                               |
 | `* *`    | user                                      | hide private contact details                                      | minimize chance of someone else seeing them by accident                     |
 | `* *`    | user                                      | see logs of changes                                               | review my past edits and restore previous information if I made a mistake   |
-| `* *`    | frequent user                             | use command aliases                                               | operate faster by typing less                                               |
+| `* *`    | frequent user                             | add favourite contacts and let them be seen at the top of the list                                               | access the most frequently used contacts without finding them                                               |
 | `* *`    | returning user                            | have command history navigation                                   | reuse or tweak previous commands quickly                                    |
 | `* *`    | neat student                              | color-code tags or contacts                                       | visually distinguish categories easily                                      |
 | `*`      | user                                      | see the last update time of a contact                             | know how recent the information is                                          |
 | `*`      | user with many people in the address book | sort persons by a certain field                                   | locate a person easily                                                      |
-| `*`      | frequent user                             | Add favorite contacts and let them be seen at the top of the list | access the most frequently used contacts without finding them               |
+| `*`      |  frequent user                             | use command aliases                                               | operate faster by typing less               |
 | `*`      | cautious user                             | detect duplicates                                                 | prevent creating multiple entries for the same person                       |
 | `*`      | cautious user                             | be able to preview all my changes before saving                   | double-check all my changes                                                 |
 | `*`      | efficient user                            | have tab autocomplete                                             | type the commands easily, without having to type the full command manually  |
@@ -502,7 +502,7 @@ Use case ends.
     Use case ends.
 
 * 2a. File cannot be created or written (e.g., invalid path or permission error) 
-* 2b. CampusBook notifies the user that the export failed and provides the error message.
+  * 2a1. CampusBook notifies the user that the export failed and provides the error message.
 
 
 **UC09: Import contacts from CSV**
@@ -529,20 +529,54 @@ Use case ends.
     Use case ends.
 
 **UC10: Select a faculty**
-TODO
 
+Guarantees: Default administrative contacts for the selected faculty will be preloaded.
+
+**MSS**
+
+1. User requests to select a faculty
+2. CampusBook validates the faculty name
+3. CampusBook preloads the administrative contacts for the selected faculty
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The given faculty is invalid. 
+  * 2a1. CampusBook shows an error message and lists valid faculties.
+    Use case resumes at step 1.
+
+* 3a. Some contacts already exist in the list.
+  * 3a1. CampusBook skips duplicates and logs a warning. 
+    Use case ends.
 
 **UC11: View command history**
-TODO
 
----
+Guarantees: User can view and reuse previously executed commands in the current session.
 
-**Alternate Scenarios**
+**MSS**
 
-*3a.* User requests to clear the command history after viewing.  
- 3a1. CampusBook confirms the action.  
- 3a2. Upon confirmation, command history is cleared.  
- Use case ends.
+1. User requests to view command history.
+2. CampusBook shows the list of previously executed commands
+3. User selects a command from history to reuse.
+4. CampusBook loads the selected command into the command box
+5. User edits or executes the command.
+
+Use case ends.
+
+**Extensions**
+
+* 2a. There is no command history. 
+  * 2a1. CampusBook shows a message indicating the history is empty.
+    Use case ends.
+
+* 3a. The given selection is invalid.
+  * 3a1. CampusBook shows an error message.
+  Use case resumes at step 2.
+
+* 3b. User navigates the command history using keyboard (e.g. Up/Down keys).
+  * 3b1. CampusBook cycles through previous commands without executing.
+  Use case resumes at step 5.
 
 ---
 
@@ -553,37 +587,66 @@ TODO
 
 --- 
 ### Non-Functional Requirements
+
 #### Environment & Portability ####
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+
 2.  All features (including seeding NUS contacts and startup message) shall work offline.
+
 #### Performance ####
 1. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+
 2. Application should respond to user commands within 1 second for typical operations (add, edit, find).
+
 3. The startup motivational message must not delay startup by more than 100ms.
+
 4. Exporting/Importing 2000 contacts should not take more than 3s.
+
 #### Usability & Accessibility ####
 1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
 2. The application should be usable by an NUS student who has never used the application before, with guidance from the User Guide.
+
 3. The application should provide the relevant help messages to educate students on how to use the application appropriately.
+
 4. A novice to CLI should be able to use the application, with guidance from the User Guide.
+
 #### Data Quality ####
-1. Faculty Admin contacts must be regularly checked by developers, and updated in releases if they are changed by the relevant departments
-2. Course/Module codes must be regularly checked by developers, and updated in releases if they are changed by the relevant departments
+1. Faculty Admin contacts must be regularly checked by developers, and updated in releases if they are changed by the relevant departments.
+
+2. Course/Module codes must be regularly checked by developers, and updated in releases if they are changed by the relevant departments.
+
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
+
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+
 * **AB3**: AddressBook Level 3, the base project we are extending
+
 * **Faculty Admin**: Administrative staff managing a faculty's affairs (e.g. registration, internship, dean's office)
+
 * **Favorite Contact**: A user-marked important contact that can be viewed at the top of the contacts list
+
 * **Seed Contacts**: Predefined contact list (e.g. NUS faculty admins) that can be bulk-loaded into your CampusBook
+
 * **Export/Import**: Functions to save or load contacts from CSV format
+
 * **Command-Line Interface (CLI)**: Text-based user interface where users type commands
+
 * **Motivational Message**: A short text displayed at startup to motivate the student to study harder
+
 * **User Guide**: A comprehensive guide to teach new users how to use the application
+
 * **Release**: A set of changes that updates or adds new functionality to a software product or service
+
 * **Course/Module Code**: A unique code given to a course/module given by NUS, which has a 2 or 3 letter prefix indicating the discipline, followed by four digits, and an optional suffix (e.g. DSA1101, CS2103T, MA2001)
+
 * **Startup**: The act of running the application for the first time after exiting it previously
+
+*  **CSV**: Comma Separated Values, where a CSV file is one commonly used to store tabular data, and individual data elements within a record separated by commas
+
+*  **Command Alias**: A custom shorthand name for a longer, more complex command, file, or function
 
 --------------------------------------------------------------------------------------------------------------------
 
