@@ -26,18 +26,21 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Faculty> faculties = new HashSet<>();
+    private final Favorite favorite;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Faculty> faculties) {
-        requireAllNonNull(name, phone, email, address, tags, faculties);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Faculty> faculties,
+                  Favorite favorite) {
+        requireAllNonNull(name, phone, email, address, tags, faculties, favorite);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
         this.faculties.addAll(faculties);
+        this.favorite = favorite;
     }
 
     public Name getName() {
@@ -70,6 +73,10 @@ public class Person {
      */
     public Set<Faculty> getFaculties() {
         return Collections.unmodifiableSet(faculties);
+    }
+
+    public Favorite getFavorite() {
+        return favorite;
     }
 
     /**
@@ -106,13 +113,13 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
-                && faculties.equals(otherPerson.faculties);
+                && faculties.equals(otherPerson.faculties)
+                && favorite.equals(otherPerson.favorite);
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, faculties);
+        return Objects.hash(name, phone, email, address, tags, faculties, favorite);
     }
 
     @Override
@@ -124,6 +131,7 @@ public class Person {
                 .add("address", address)
                 .add("tags", tags)
                 .add("faculties", faculties)
+                .add("favorite", favorite)
                 .toString();
     }
 
