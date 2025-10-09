@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import com.opencsv.CSVReader;
 
+import com.opencsv.CSVWriter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.person.*;
@@ -9,17 +10,19 @@ import seedu.address.model.tag.Tag;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CsvUtil {
     private static final String[] HEADERS = {"Name", "Phone Number", "Email", "Address", "Tags", "Faculties"};
 
-    public List<Person> readContactsFromCSV(Path csvPath) throws IOException, com.opencsv.exceptions.CsvValidationException {
+    public static List<Person> readContactsFromCSV(Path csvPath) throws IOException, com.opencsv.exceptions.CsvValidationException {
         List<Person> contacts = new ArrayList<>();
 
         try (Reader r = Files.newBufferedReader(csvPath);
@@ -60,4 +63,35 @@ public class CsvUtil {
         }
         return contacts;
     }
+
+    public static void writeContactsToCSV(Path csvPath, List<Person> contacts) throws IOException {
+        try (Writer writer = Files.newBufferedWriter(csvPath);
+             CSVWriter csvWriter = new CSVWriter(writer,
+                     CSVWriter.DEFAULT_SEPARATOR,
+                     CSVWriter.DEFAULT_QUOTE_CHARACTER,
+                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                     CSVWriter.DEFAULT_LINE_END)) {
+
+            csvWriter.writeNext(HEADERS);
+
+            for (Person p : contacts) {
+                String name = p.getName().toString();
+                String phone = p.getPhone().toString();
+                String email = p.getEmail().toString();
+                String address = p.getAddress().toString();
+
+                String tags = p.getTags().stream()
+                        .map(Tag::toString)
+                        .collect(Collectors.joining("|"));
+
+                String faculties = p.getFaculties().stream()
+                        .map(Faculty::toString)
+                        .collect(Collectors.joining("|"));
+
+                String[] line = {name, phone, email, address, tags, faculties};
+                csvWriter.writeNext(line);
+            }
+        }
+    }
 }
+
