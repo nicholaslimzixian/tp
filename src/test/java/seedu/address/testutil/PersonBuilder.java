@@ -106,6 +106,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Favorite} of the {@code Person} that we are building.
+     */
     public PersonBuilder withFavorite(boolean isFavorite) {
         this.favorite = new Favorite(isFavorite);
         return this;
