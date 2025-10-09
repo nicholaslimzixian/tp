@@ -140,7 +140,5 @@ public class CsvUtil {
         }
         return allFaculties;
     }
-
-
 }
 
