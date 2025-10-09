@@ -1,4 +1,5 @@
 package seedu.address.testutil;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -8,9 +9,10 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 
-import com.opencsv.exceptions.CsvValidationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import com.opencsv.exceptions.CsvValidationException;
 
 import seedu.address.commons.util.CsvUtil;
 import seedu.address.model.faculty.Faculty;
