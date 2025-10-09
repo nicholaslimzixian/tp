@@ -54,26 +54,8 @@ public class CsvUtil {
                 Phone phoneNo = new Phone(nextLine[1].trim());
                 Email email = new Email(nextLine[2].trim());
                 Address address = new Address(nextLine[3]);
-                String tag = nextLine[4];
-
-                Set<Tag> allTags = new HashSet<>();
-                if (tag != null && !tag.isEmpty()) {
-                    String[] tagParts = tag.split("\\|"); // assuming '|' used to join tags
-                    for (String t : tagParts) {
-                        Tag newTag = new Tag(t.trim());
-                        allTags.add(newTag);
-                    }
-                }
-                String faculty = nextLine[5];
-
-                Set<Faculty> allFaculties = new HashSet<>();
-                if (faculty != null && !faculty.isEmpty()) {
-                    String[] facultyParts = faculty.split("\\|"); // assuming '|' used to join tags
-                    for (String t : facultyParts) {
-                        Faculty newFaculty = new Faculty(t.trim());
-                        allFaculties.add(newFaculty);
-                    }
-                }
+                Set<Tag> allTags = parseTags(nextLine[4]);
+                Set<Faculty> allFaculties = parseFaculties(nextLine[5]);
 
                 Person newPerson = new Person(name, phoneNo, email, address, allTags, allFaculties);
 
@@ -124,5 +106,41 @@ public class CsvUtil {
             }
         }
     }
+
+    /**
+     * Helper method to parse a pipe-separated string into a set of {@link Tag}.
+     */
+    private static Set<Tag> parseTags(String tagString) {
+        Set<Tag> allTags = new HashSet<>();
+        if (tagString != null && !tagString.isEmpty()) {
+            String[] tagParts = tagString.split("\\|");
+            for (String t : tagParts) {
+                t = t.trim();
+                if (!t.isEmpty()) {
+                    allTags.add(new Tag(t));
+                }
+            }
+        }
+        return allTags;
+    }
+
+    /**
+     * Helper method to parse a pipe-separated string into a set of {@link Faculty}.
+     */
+    private static Set<Faculty> parseFaculties(String facultyString) {
+        Set<Faculty> allFaculties = new HashSet<>();
+        if (facultyString != null && !facultyString.isEmpty()) {
+            String[] facultyParts = facultyString.split("\\|");
+            for (String t : facultyParts) {
+                t = t.trim();
+                if (!t.isEmpty()) {
+                    allFaculties.add(new Faculty(t));
+                }
+            }
+        }
+        return allFaculties;
+    }
+
+
 }
 
