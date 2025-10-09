@@ -40,10 +40,14 @@ public class CsvUtil {
             throws IOException, CsvValidationException {
         List<Person> contacts = new ArrayList<>();
 
+
         try (Reader r = Files.newBufferedReader(csvPath);
              CSVReader csvReader = new CSVReader(r)) {
 
             String[] nextLine;
+
+            //Skip the header row
+            csvReader.readNext();
 
             while ((nextLine = csvReader.readNext()) != null) {
                 Name name = new Name(nextLine[0].trim());
@@ -108,11 +112,11 @@ public class CsvUtil {
                 String address = p.getAddress().toString();
 
                 String tags = p.getTags().stream()
-                        .map(Tag::toString)
+                        .map(tag -> tag.tagName)
                         .collect(Collectors.joining("|"));
 
                 String faculties = p.getFaculties().stream()
-                        .map(Faculty::toString)
+                        .map(Faculty -> Faculty.facultyName)
                         .collect(Collectors.joining("|"));
 
                 String[] line = {name, phone, email, address, tags, faculties};
