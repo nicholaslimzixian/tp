@@ -1,13 +1,5 @@
 package seedu.address.commons.util;
 
-import com.opencsv.CSVReader;
-
-import com.opencsv.CSVWriter;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.faculty.Faculty;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -19,10 +11,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+
+import seedu.address.model.faculty.Faculty;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+
 public class CsvUtil {
     private static final String[] HEADERS = {"Name", "Phone Number", "Email", "Address", "Tags", "Faculties"};
 
-    public static List<Person> readContactsFromCSV(Path csvPath) throws IOException, com.opencsv.exceptions.CsvValidationException {
+    public static List<Person> readContactsFromCsv(Path csvPath)
+            throws IOException, com.opencsv.exceptions.CsvValidationException {
         List<Person> contacts = new ArrayList<>();
 
         try (Reader r = Files.newBufferedReader(csvPath);
@@ -64,7 +68,7 @@ public class CsvUtil {
         return contacts;
     }
 
-    public static void writeContactsToCSV(Path csvPath, List<Person> contacts) throws IOException {
+    public static void writeContactsToCsv(Path csvPath, List<Person> contacts) throws IOException {
         try (Writer writer = Files.newBufferedWriter(csvPath);
              CSVWriter csvWriter = new CSVWriter(writer,
                      CSVWriter.DEFAULT_SEPARATOR,
