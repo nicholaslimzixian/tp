@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.person.Address;
@@ -22,11 +23,21 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Handles CSV utility functions.
+ */
 public class CsvUtil {
     private static final String[] HEADERS = {"Name", "Phone Number", "Email", "Address", "Tags", "Faculties"};
 
+    /**
+     * Reads contacts from a CSV file.
+     * @param csvPath path to the CSV file
+     * @return list of persons
+     * @throws IOException if file access fails
+     * @throws CsvValidationException if CSV is invalid
+     */
     public static List<Person> readContactsFromCsv(Path csvPath)
-            throws IOException, com.opencsv.exceptions.CsvValidationException {
+            throws IOException, CsvValidationException {
         List<Person> contacts = new ArrayList<>();
 
         try (Reader r = Files.newBufferedReader(csvPath);
@@ -43,7 +54,7 @@ public class CsvUtil {
 
                 Set<Tag> allTags = new HashSet<>();
                 if (tag != null && !tag.isEmpty()) {
-                    String[] tagParts = tag.split("\\|");  // assuming '|' used to join tags
+                    String[] tagParts = tag.split("\\|"); // assuming '|' used to join tags
                     for (String t : tagParts) {
                         Tag newTag = new Tag(t.trim());
                         allTags.add(newTag);
@@ -53,7 +64,7 @@ public class CsvUtil {
 
                 Set<Faculty> allFaculties = new HashSet<>();
                 if (faculty != null && !faculty.isEmpty()) {
-                    String[] facultyParts = faculty.split("\\|");  // assuming '|' used to join tags
+                    String[] facultyParts = faculty.split("\\|"); // assuming '|' used to join tags
                     for (String t : facultyParts) {
                         Faculty newFaculty = new Faculty(t.trim());
                         allFaculties.add(newFaculty);
@@ -62,12 +73,24 @@ public class CsvUtil {
 
                 Person newPerson = new Person(name, phoneNo, email, address, allTags, allFaculties);
 
-                // ADD THE NEW PERSON HERE
+                contacts.add(newPerson);
             }
         }
         return contacts;
     }
 
+    /**
+     * Writes a list of {@link Person} objects to a CSV file at the specified path.
+     * Each {@code Person} is written with the following fields in order:
+     * Name, Phone Number, Email, Address, Tags, Faculties.
+     * Tags and Faculties are joined using the pipe character '|'.
+     * If the CSV file does not exist, it will be created. If it exists, its contents
+     * will be overwritten.
+     *
+     * @param csvPath  the {@link Path} to the CSV file to write
+     * @param contacts the list of {@link Person} objects to write to the CSV
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
     public static void writeContactsToCsv(Path csvPath, List<Person> contacts) throws IOException {
         try (Writer writer = Files.newBufferedWriter(csvPath);
              CSVWriter csvWriter = new CSVWriter(writer,
