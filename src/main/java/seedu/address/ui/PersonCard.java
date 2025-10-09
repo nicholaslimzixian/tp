@@ -41,6 +41,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private FlowPane modules;
+    @FXML
     private FlowPane faculties;
 
     /**
@@ -57,6 +59,9 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getModules().stream()
+                .sorted(Comparator.comparing(module -> module.moduleName))
+                .forEach(module -> modules.getChildren().add(new Label(module.moduleName)));
         person.getFaculties().stream()
                 .sorted(Comparator.comparing(faculty -> faculty.facultyName))
                 .forEach(faculty -> faculties.getChildren().add(new Label(faculty.facultyName)));

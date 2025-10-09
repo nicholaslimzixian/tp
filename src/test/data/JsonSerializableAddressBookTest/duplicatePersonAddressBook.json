@@ -5,6 +5,7 @@
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "tags": [ "friends" ],
+    "modules": [ "CS2103T" ],
     "faculties": [ "Engineering" ]
   }, {
     "name": "Alice Pauline",

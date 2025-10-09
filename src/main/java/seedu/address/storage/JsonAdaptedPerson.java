@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -30,6 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedModule> modules = new ArrayList<>();
     private final List<JsonAdaptedFaculty> faculties = new ArrayList<>();
 
     /**
@@ -39,6 +41,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("modules") List<JsonAdaptedModule> modules,
             @JsonProperty("faculties") List<JsonAdaptedFaculty> faculties) {
         this.name = name;
         this.phone = phone;
@@ -46,6 +49,9 @@ class JsonAdaptedPerson {
         this.address = address;
         if (tags != null) {
             this.tags.addAll(tags);
+        }
+        if (modules != null) {
+            this.modules.addAll(modules);
         }
         if (faculties != null) {
             this.faculties.addAll(faculties);
@@ -63,6 +69,9 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        modules.addAll(source.getModules().stream()
+                .map(JsonAdaptedModule::new)
+                .collect(Collectors.toList()));
         faculties.addAll(source.getFaculties().stream()
                 .map(JsonAdaptedFaculty::new)
                 .collect(Collectors.toList()));
@@ -75,10 +84,15 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final List<Module> personModules = new ArrayList<>();
         final List<Faculty> personFaculties = new ArrayList<>();
 
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
+        }
+
+        for (JsonAdaptedModule module : modules) {
+            personModules.add(module.toModelType());
         }
 
         for (JsonAdaptedFaculty faculty : faculties) {
@@ -115,11 +129,15 @@ class JsonAdaptedPerson {
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
+
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
+
+        final Set<Module> modelModules = new HashSet<>(personModules);
+
         final Set<Faculty> modelFaculties = new HashSet<>(personFaculties);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelFaculties);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelModules, modelFaculties);
     }
 
 }

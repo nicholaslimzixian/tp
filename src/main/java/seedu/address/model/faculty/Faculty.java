@@ -16,7 +16,7 @@ public class Faculty {
     public final String facultyName;
 
     /**
-     * Constructs a {@code Tag}.
+     * Constructs a {@code Faculty}.
      *
      * @param facultyName A valid faculty name.
      */
