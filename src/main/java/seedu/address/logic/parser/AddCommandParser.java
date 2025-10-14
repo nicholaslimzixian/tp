@@ -52,9 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<Faculty> facultyList = ParserUtil.parseFaculties(argMultimap.getAllValues(PREFIX_FACULTY));
-        Favorite favorite = argMultimap.getValue(PREFIX_FAVORITE).isPresent()
-                ? ParserUtil.parseFavorite(argMultimap.getValue(PREFIX_FAVORITE).get())
-                : Favorite.DEFAULT_NOT_FAVORITE;
+        Favorite favorite = ParserUtil.parseFavorite(argMultimap.getValue(PREFIX_FAVORITE).orElse("false"));
 
         Person person = new Person(name, phone, email, address, tagList, facultyList, favorite);
 
