@@ -5,11 +5,15 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.model.person.FacultyContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.TagContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -22,35 +26,27 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validNameArgs_returnsFindCommand() {
-        // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
+    public void parse_validArgs_returnsFindCommand() {
+        // find by name
+        FindCommand expectedFindCommandName =
                 new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+        assertParseSuccess(parser, " n/Alice Bob", expectedFindCommandName);
 
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
-    }
+        // find by tag
+        FindCommand expectedFindCommandTag =
+                new FindCommand(new TagContainsKeywordsPredicate(Arrays.asList("friend", "cca")));
+        assertParseSuccess(parser, " t/friend cca", expectedFindCommandTag);
 
-    @Test
-    public void parse_validTagArgs_returnsFindCommand() {
-        // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
-                new FindCommand(new TagContainsKeywordsPredicate(Arrays.asList("friends", "family")));
-        assertParseSuccess(parser, " t/friends family", expectedFindCommand);
+        // find by faculty
+        FindCommand expectedFindCommandFaculty =
+                new FindCommand(new FacultyContainsKeywordsPredicate(Arrays.asList("Computing", "Science")));
+        assertParseSuccess(parser, " f/Computing Science", expectedFindCommandFaculty);
 
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n t/friends \n \t family  \t", expectedFindCommand);
-    }
-
-    @Test
-    public void parse_invalidTagArgs_throwsParseException() {
-        // empty tag prefix
-        assertParseFailure(parser, " t/", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-
-        // both name and tag prefixes present
-        assertParseFailure(parser, "Alice t/friends",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        // find by name and faculty (compound)
+        Predicate<Person> combinedPredicate = new NameContainsKeywordsPredicate(List.of("Alice"))
+                .and(new FacultyContainsKeywordsPredicate(List.of("Computing")));
+        FindCommand expectedFindCommandCompound = new FindCommand(combinedPredicate);
+        assertParseSuccess(parser, " n/Alice f/Computing", expectedFindCommandCompound);
     }
 
 }
