@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -17,13 +19,21 @@ public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Preloads faculty admin contacts for a given faculty.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Preloads faculty admin contacts for a given faculty.\n"
             + "Parameters: FACULTY_NAME\n"
             + "Example: " + COMMAND_WORD + " Computing";
 
-    public static final String MESSAGE_SUCCESS = "Added faculty admin contacts for %1$s.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "Skipping duplicate contact: %1$s";
-    public static final String MESSAGE_INVALID_FACULTY = "Invalid faculty specified. Please choose from the following:\n%1$s";
+    public static final String MESSAGE_SUCCESS =
+            "Added faculty admin contacts for %1$s.";
+
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "Skipping duplicate contact: %1$s";
+
+    public static final String MESSAGE_INVALID_FACULTY =
+            "Invalid faculty specified. Please choose from the following:\n%1$s";
+
+
 
     private final String faculty;
 
