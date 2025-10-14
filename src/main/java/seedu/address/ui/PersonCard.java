@@ -63,7 +63,8 @@ public class PersonCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(faculty -> faculty.facultyName))
                 .forEach(faculty -> faculties.getChildren().add(new Label(faculty.facultyName)));
         if (person.getFavorite().getIsFavorite()) {
-            favorite.setText("⭐");
+            favorite.setText("★");
+            cardPane.getStyleClass().add("favorite-card");
         }
     }
 }
