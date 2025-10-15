@@ -53,6 +53,7 @@ public class CsvUtil {
             csvReader.readNext();
 
             while ((nextLine = csvReader.readNext()) != null) {
+
                 Name name = new Name(nextLine[0].trim());
                 Phone phoneNo = new Phone(nextLine[1].trim());
                 Email email = new Email(nextLine[2].trim());
@@ -60,9 +61,10 @@ public class CsvUtil {
                 Set<Tag> allTags = parseTags(nextLine[4]);
                 Set<Module> allModules = parseModules(nextLine[5]);
                 Set<Faculty> allFaculties = parseFaculties(nextLine[6]);
+                Favorite favorite = new Favorite(Boolean.parseBoolean(nextLine[7].trim()));
 
                 Person newPerson = new Person(name, phoneNo, email, address, allTags, allModules, allFaculties,
-                        Favorite.DEFAULT_NOT_FAVORITE);
+                        favorite);
 
                 contacts.add(newPerson);
             }

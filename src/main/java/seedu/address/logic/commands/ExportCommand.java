@@ -20,6 +20,7 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_EXPORT_ACKNOWLEDGEMENT = "Exporting AddressBook...";
+    public static final String FAILED_EXPORT = "Failed to export contacts to CSV";
     public static final String EMPTY_ADDRESSBOOK = "Unable to export due to empty address book";
 
     @Override
@@ -35,7 +36,7 @@ public class ExportCommand extends Command {
         try {
             CsvUtil.writeContactsToCsv(downloadPath, allContacts);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CommandException(FAILED_EXPORT);
         }
         return new CommandResult(MESSAGE_EXPORT_ACKNOWLEDGEMENT);
     }
