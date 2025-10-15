@@ -1,5 +1,5 @@
 package seedu.address.testutil;
-/*
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,11 +24,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-*/
+
 
 class CsvUtilTest {
 
-    /*
     @TempDir
     Path tempDir;
 
@@ -95,5 +94,4 @@ class CsvUtilTest {
         List<Person> contacts = CsvUtil.readContactsFromCsv(emptyCsv);
         assertTrue(contacts.isEmpty());
     }
-    */
 }
