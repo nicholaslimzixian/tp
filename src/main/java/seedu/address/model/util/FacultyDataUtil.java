@@ -40,19 +40,19 @@ public class FacultyDataUtil {
         case "science":
             adminContacts.add(new Person(new Name("Science Admin"), new Phone("81234567"),
                     new Email("sci_admin@example.com"), new Address("Science Block S1"),
-                    getTagSet("admin"), getModuleSet("CS2103T"), getFacultySet("Science"),
+                    getTagSet("admin"), getModuleSet(""), getFacultySet("Science"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "business":
             adminContacts.add(new Person(new Name("Business Admin"), new Phone("82345678"),
                     new Email("biz_admin@example.com"), new Address("Business School Mochtar Riady Building"),
-                    getTagSet("admin"), getModuleSet("MA1521"), getFacultySet("Business"),
+                    getTagSet("admin"), getModuleSet(""), getFacultySet("Business"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "arts":
             adminContacts.add(new Person(new Name("Arts Admin"), new Phone("83456789"),
                     new Email("fass_admin@example.com"), new Address("Faculty of Arts and Social Sciences"),
-                    getTagSet("admin"), getModuleSet("CS2103T"), getFacultySet("Arts"),
+                    getTagSet("admin"), getModuleSet(""), getFacultySet("Arts"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "computing":
@@ -70,13 +70,13 @@ public class FacultyDataUtil {
         case "law":
             adminContacts.add(new Person(new Name("Law Admin"), new Phone("86789012"),
                     new Email("law_admin@example.com"), new Address("Faculty of Law"),
-                    getTagSet("admin"), getModuleSet("MA1521"), getFacultySet("Law"),
+                    getTagSet("admin"), getModuleSet(""), getFacultySet("Law"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "medicine":
             adminContacts.add(new Person(new Name("Medicine Admin"), new Phone("87890123"),
                     new Email("med_admin@example.com"), new Address("Yong Loo Lin School of Medicine"),
-                    getTagSet("admin"), getModuleSet("CS2103T"), getFacultySet("Medicine"),
+                    getTagSet("admin"), getModuleSet(""), getFacultySet("Medicine"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         default:
