@@ -29,7 +29,8 @@ import seedu.address.model.tag.Tag;
  * Handles CSV utility functions.
  */
 public class CsvUtil {
-    private static final String[] HEADERS = {"Name", "Phone Number", "Email", "Address", "Tags", "Faculties"};
+    private static final String[] HEADERS = {"Name", "Phone Number", "Email",
+                                             "Address", "Tags", "Modules", "Faculties"};
 
     /**
      * Reads contacts from a CSV file.
@@ -101,11 +102,15 @@ public class CsvUtil {
                         .map(tag -> tag.tagName)
                         .collect(Collectors.joining("|"));
 
+                String modules = p.getModules().stream()
+                        .map(module -> module.moduleName)
+                        .collect(Collectors.joining("|"));
+
                 String faculties = p.getFaculties().stream()
                         .map(Faculty -> Faculty.facultyName)
                         .collect(Collectors.joining("|"));
 
-                String[] line = {name, phone, email, address, tags, faculties};
+                String[] line = {name, phone, email, address, tags, modules, faculties};
                 csvWriter.writeNext(line);
             }
         }
