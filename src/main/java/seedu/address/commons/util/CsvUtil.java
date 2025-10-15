@@ -29,7 +29,8 @@ import seedu.address.model.tag.Tag;
  * Handles CSV utility functions.
  */
 public class CsvUtil {
-    private static final String[] HEADERS = {"Name", "Phone Number", "Email", "Address", "Tags", "Modules", "Faculties"};
+    private static final String[] HEADERS = {"Name", "Phone Number", "Email",
+                                             "Address", "Tags", "Modules", "Faculties"};
 
     /**
      * Reads contacts from a CSV file.

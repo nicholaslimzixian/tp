@@ -40,7 +40,7 @@ public class FacultyDataUtil {
         case "science":
             adminContacts.add(new Person(new Name("Science Admin"), new Phone("81234567"),
                     new Email("sci_admin@example.com"), new Address("Science Block S1"),
-                    getTagSet("admin"), getModuleSet("CS2103T"),getFacultySet("Science"),
+                    getTagSet("admin"), getModuleSet("CS2103T"), getFacultySet("Science"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "business":
@@ -52,19 +52,19 @@ public class FacultyDataUtil {
         case "arts":
             adminContacts.add(new Person(new Name("Arts Admin"), new Phone("83456789"),
                     new Email("fass_admin@example.com"), new Address("Faculty of Arts and Social Sciences"),
-                    getTagSet("admin"), getModuleSet("CS2103T"),getFacultySet("Arts"),
+                    getTagSet("admin"), getModuleSet("CS2103T"), getFacultySet("Arts"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "computing":
             adminContacts.add(new Person(new Name("Computing Admin"), new Phone("84567890"),
                     new Email("soc_admin@example.com"), new Address("School of Computing COM1"),
-                    getTagSet("admin"), getModuleSet("MA1521"),getFacultySet("Computing"),
+                    getTagSet("admin"), getModuleSet("MA1521"), getFacultySet("Computing"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "engineering":
             adminContacts.add(new Person(new Name("Engineering Admin"), new Phone("85678901"),
                     new Email("eng_admin@example.com"), new Address("Faculty of Engineering"),
-                    getTagSet("admin"), getModuleSet("CS2103T"), getFacultySet("Engineering"),
+                    getTagSet("admin"), getModuleSet("EG1311"), getFacultySet("Engineering"),
                     Favorite.DEFAULT_NOT_FAVORITE));
             break;
         case "law":
