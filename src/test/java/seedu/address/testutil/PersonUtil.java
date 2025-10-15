@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -12,6 +13,7 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -39,6 +41,9 @@ public class PersonUtil {
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+        person.getModules().stream().forEach(
+            s -> sb.append(PREFIX_MODULE + s.moduleName + " ")
+        );
         person.getFaculties().stream().forEach(
             s -> sb.append(PREFIX_FACULTY + s.facultyName + " ")
         );
@@ -60,6 +65,14 @@ public class PersonUtil {
                 sb.append(PREFIX_TAG + " ");
             } else {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+            }
+        }
+        if (descriptor.getModules().isPresent()) {
+            Set<Module> modules = descriptor.getModules().get();
+            if (modules.isEmpty()) {
+                sb.append(PREFIX_MODULE + " ");
+            } else {
+                modules.forEach(s -> sb.append(PREFIX_MODULE).append(s.moduleName).append(" "));
             }
         }
         if (descriptor.getFaculties().isPresent()) {

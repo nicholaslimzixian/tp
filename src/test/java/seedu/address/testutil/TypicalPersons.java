@@ -6,6 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_COMPUTING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_SCIENCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_GESS2109;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -31,6 +33,7 @@ public class TypicalPersons {
             .withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends")
+            .withModules("CS2103T")
             .withFaculties("Engineering")
             .build();
     public static final Person BENSON = new PersonBuilder()
@@ -39,6 +42,7 @@ public class TypicalPersons {
             .withEmail("johnd@example.com")
             .withPhone("98765432")
             .withTags("owesMoney", "friends")
+            .withModules("CS2103T", "GESS2109")
             .withFaculties("Business")
             .build();
     public static final Person CARL = new PersonBuilder()
@@ -53,6 +57,7 @@ public class TypicalPersons {
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
             .withTags("friends")
+            .withModules("CS2103T")
             .withFaculties("Arts")
             .build();
     public static final Person ELLE = new PersonBuilder()
@@ -67,6 +72,7 @@ public class TypicalPersons {
             .withPhone("9482427")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo")
+            .withModules("CS2103T")
             .withFaculties("Law")
             .build();
     public static final Person GEORGE = new PersonBuilder()
@@ -98,12 +104,16 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_AMY)
             .withAddress(VALID_ADDRESS_AMY)
             .withTags(VALID_TAG_FRIEND)
+            .withModules(VALID_MODULE_CS2103T)
             .withFaculties(VALID_FACULTY_SCIENCE)
             .build();
     public static final Person BOB = new PersonBuilder()
             .withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withEmail(VALID_EMAIL_BOB)
+            .withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withModules(VALID_MODULE_GESS2109)
             .withFaculties(VALID_FACULTY_COMPUTING, VALID_FACULTY_SCIENCE).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

@@ -29,6 +29,7 @@
         <Label fx:id="favorite" styleClass="favorite_star" />
       </HBox>
       <FlowPane fx:id="tags" />
+      <FlowPane fx:id="modules" />
       <FlowPane fx:id="faculties" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />

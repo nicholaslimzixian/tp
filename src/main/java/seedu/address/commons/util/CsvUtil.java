@@ -17,6 +17,7 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.favorite.Favorite;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -28,7 +29,8 @@ import seedu.address.model.tag.Tag;
  * Handles CSV utility functions.
  */
 public class CsvUtil {
-    private static final String[] HEADERS = {"Name", "Phone Number", "Email", "Address", "Tags", "Faculties"};
+    private static final String[] HEADERS = {"Name", "Phone Number", "Email",
+                                             "Address", "Tags", "Modules", "Faculties"};
 
     /**
      * Reads contacts from a CSV file.
@@ -56,9 +58,10 @@ public class CsvUtil {
                 Email email = new Email(nextLine[2].trim());
                 Address address = new Address(nextLine[3]);
                 Set<Tag> allTags = parseTags(nextLine[4]);
-                Set<Faculty> allFaculties = parseFaculties(nextLine[5]);
+                Set<Module> allModules = parseModules(nextLine[5]);
+                Set<Faculty> allFaculties = parseFaculties(nextLine[6]);
 
-                Person newPerson = new Person(name, phoneNo, email, address, allTags, allFaculties,
+                Person newPerson = new Person(name, phoneNo, email, address, allTags, allModules, allFaculties,
                         Favorite.DEFAULT_NOT_FAVORITE);
 
                 contacts.add(newPerson);
@@ -99,11 +102,15 @@ public class CsvUtil {
                         .map(tag -> tag.tagName)
                         .collect(Collectors.joining("|"));
 
+                String modules = p.getModules().stream()
+                        .map(module -> module.moduleName)
+                        .collect(Collectors.joining("|"));
+
                 String faculties = p.getFaculties().stream()
                         .map(Faculty -> Faculty.facultyName)
                         .collect(Collectors.joining("|"));
 
-                String[] line = {name, phone, email, address, tags, faculties};
+                String[] line = {name, phone, email, address, tags, modules, faculties};
                 csvWriter.writeNext(line);
             }
         }
@@ -124,6 +131,23 @@ public class CsvUtil {
             }
         }
         return allTags;
+    }
+
+    /**
+     * Helper method to parse a pipe-separated string into a set of {@link Module}.
+     */
+    private static Set<Module> parseModules(String moduleString) {
+        Set<Module> allModules = new HashSet<>();
+        if (moduleString != null && !moduleString.isEmpty()) {
+            String[] moduleParts = moduleString.split("\\|");
+            for (String m : moduleParts) {
+                m = m.trim();
+                if (!m.isEmpty()) {
+                    allModules.add(new Module(m));
+                }
+            }
+        }
+        return allModules;
     }
 
     /**

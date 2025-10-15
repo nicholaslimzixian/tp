@@ -10,9 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.FACULTY_DESC_SCIENCE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FACULTY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODULE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MODULE_DESC_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.MODULE_DESC_GESS2109;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -25,6 +28,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_COMPUTING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_SCIENCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_GESS2109;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -43,6 +48,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -58,23 +64,41 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB)
             .withTags(VALID_TAG_FRIEND)
+            .withModules(VALID_MODULE_CS2103T)
             .withFaculties(VALID_FACULTY_COMPUTING).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FACULTY_DESC_COMPUTING, new AddCommand(expectedPerson));
+        assertParseSuccess(
+            parser,
+            PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + MODULE_DESC_CS2103T
+                + FACULTY_DESC_COMPUTING, new AddCommand(expectedPerson));
 
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .withFaculties().build();
+        Person expectedPersonMultipleTags = new PersonBuilder(BOB)
+            .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+            .withModules()
+            .withFaculties().build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new AddCommand(expectedPersonMultipleTags));
+
+        // multiple modules - all accepted
+        Person expectedPersonMultipleModules = new PersonBuilder(BOB)
+            .withTags()
+            .withModules(VALID_MODULE_CS2103T, VALID_MODULE_GESS2109)
+            .withFaculties().build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + MODULE_DESC_CS2103T + MODULE_DESC_GESS2109,
+                new AddCommand(expectedPersonMultipleModules));
 
         // multiple faculties - all accepted
         Person expectedPersonMultipleFaculties = new PersonBuilder(BOB)
             .withTags()
+            .withModules()
             .withFaculties(VALID_FACULTY_COMPUTING, VALID_FACULTY_SCIENCE).build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -83,9 +107,9 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_repeatedNonTagAndFacultyValue_failure() {
+    public void parse_repeatedPersonAttributes_failure() {
         String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FACULTY_DESC_COMPUTING;
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + MODULE_DESC_CS2103T + FACULTY_DESC_COMPUTING;
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_AMY + validExpectedPersonString,
@@ -149,15 +173,34 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedTagPerson = new PersonBuilder(AMY).withTags().withFaculties(VALID_FACULTY_SCIENCE).build();
+        Person expectedTagPerson = new PersonBuilder(AMY)
+            .withTags()
+            .withModules(VALID_MODULE_CS2103T)
+            .withFaculties(VALID_FACULTY_SCIENCE)
+            .build();
         assertParseSuccess(parser,
             NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+            + MODULE_DESC_CS2103T
             + FACULTY_DESC_SCIENCE, new AddCommand(expectedTagPerson));
 
+        // zero modules
+        Person expectedModulePerson = new PersonBuilder(AMY)
+            .withTags(VALID_TAG_FRIEND)
+            .withModules()
+            .withFaculties(VALID_FACULTY_COMPUTING).build();
+        assertParseSuccess(parser,
+            NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+            + TAG_DESC_FRIEND
+            + FACULTY_DESC_COMPUTING, new AddCommand(expectedModulePerson));
+
         // zero faculties
-        Person expectedFacultyPerson = new PersonBuilder(AMY).withTags(VALID_TAG_FRIEND).withFaculties().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND,
-                new AddCommand(expectedFacultyPerson));
+        Person expectedFacultyPerson = new PersonBuilder(AMY)
+            .withTags(VALID_TAG_FRIEND)
+            .withModules(VALID_MODULE_CS2103T)
+            .withFaculties().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+            + TAG_DESC_FRIEND
+            + MODULE_DESC_CS2103T, new AddCommand(expectedFacultyPerson));
     }
 
     @Test
@@ -206,6 +249,10 @@ public class AddCommandParserTest {
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND + FACULTY_DESC_COMPUTING, Tag.MESSAGE_CONSTRAINTS);
+
+        // invalid module
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_MODULE_DESC, Module.MESSAGE_CONSTRAINTS);
 
         // invalid faculty
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

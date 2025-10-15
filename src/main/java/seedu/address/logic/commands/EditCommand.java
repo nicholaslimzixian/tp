@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.favorite.Favorite;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -48,6 +50,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_MODULE + "MODULE]..."
             + "[" + PREFIX_FACULTY + "FACULTY]... "
             + "[" + PREFIX_FAVORITE + "FAVORITE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -106,11 +109,19 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Set<Module> updatedModules = editPersonDescriptor.getModules().orElse(personToEdit.getModules());
         Set<Faculty> updatedFaculties = editPersonDescriptor.getFaculties().orElse(personToEdit.getFaculties());
         Favorite updatedFavorite = editPersonDescriptor.getFavorite().orElse(personToEdit.getFavorite());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedFaculties,
-                updatedFavorite);
+        return new Person(
+            updatedName,
+            updatedPhone,
+            updatedEmail,
+            updatedAddress,
+            updatedTags,
+            updatedModules,
+            updatedFaculties,
+            updatedFavorite);
     }
 
     @Override
@@ -147,6 +158,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Set<Module> modules;
         private Set<Faculty> faculties;
         private Favorite favorite;
 
@@ -154,7 +166,7 @@ public class EditCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} and {@code faculties} is used internally.
+         * A defensive copy of {@code tags}, {@code faculties} and {@code modules} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
@@ -162,6 +174,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setModules(toCopy.modules);
             setFaculties(toCopy.faculties);
             setFavorite(toCopy.favorite);
         }
@@ -170,7 +183,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, faculties, favorite);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, modules, faculties, favorite);
         }
 
         public void setName(Name name) {
@@ -214,6 +227,14 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code modules} to this object's {@code modules}.
+         * A defensive copy of {@code modules} is used internally.
+         */
+        public void setModules(Set<Module> modules) {
+            this.modules = (modules != null) ? new HashSet<>(modules) : null;
+        }
+
+        /**
          * Sets {@code faculties} to this object's {@code faculties}.
          * A defensive copy of {@code faculties} is used internally.
          */
@@ -228,6 +249,16 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable module set, which throws
+         * {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code modules} is null.
+         */
+        public Optional<Set<Module>> getModules() {
+            return (modules != null) ? Optional.of(Collections.unmodifiableSet(modules)) : Optional.empty();
         }
 
         /**
@@ -265,6 +296,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(modules, otherEditPersonDescriptor.modules)
                     && Objects.equals(faculties, otherEditPersonDescriptor.faculties)
                     && Objects.equals(favorite, otherEditPersonDescriptor.favorite);
         }
@@ -277,6 +309,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
+                    .add("modules", modules)
                     .add("faculties", faculties)
                     .add("favorite", favorite)
                     .toString();
