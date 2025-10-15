@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.function.Predicate;
 
@@ -17,16 +20,24 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) or whose tags match the specified tag.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]... OR t/TAG\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie\n"
-            + "Example: " + COMMAND_WORD + " t/friends";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all persons who match all of the specified criteria "
+            + "(name, tag, and/or faculty) and displays them as a list with index numbers.\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "NAME_KEYWORD [MORE_KEYWORDS]...] "
+            + "[" + PREFIX_TAG + "TAG_KEYWORD [MORE_KEYWORDS]...] "
+            + "[" + PREFIX_FACULTY + "FACULTY_KEYWORD [MORE_KEYWORDS]...]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice " + PREFIX_FACULTY + "computing";
+
 
     private final Predicate<Person> predicate;
 
     public FindCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
+    }
+
+    public Predicate<Person> getPredicate() {
+        return predicate;
     }
 
     @Override
