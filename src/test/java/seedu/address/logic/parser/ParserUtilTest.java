@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -27,6 +28,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_MODULE = "C123O";
     private static final String INVALID_FACULTY = "Engineering123";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -35,6 +37,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_MODULE_1 = "CS2103T";
+    private static final String VALID_MODULE_2 = "GESS2109";
     private static final String VALID_FACULTY_1 = "Engineering";
     private static final String VALID_FACULTY_2 = "Science";
 
@@ -196,6 +200,55 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+
+    @Test
+    public void parseModule_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseModule(null));
+    }
+
+    @Test
+    public void parseModule_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseModule(INVALID_MODULE));
+    }
+
+    @Test
+    public void parseModule_validValueWithoutWhitespace_returnsModule() throws Exception {
+        Module expectedModule = new Module(VALID_MODULE_1);
+        assertEquals(expectedModule, ParserUtil.parseModule(VALID_MODULE_1));
+    }
+
+    @Test
+    public void parseModule_validValueWithWhitespace_returnsTrimmedModule() throws Exception {
+        String moduleWithWhitespace = WHITESPACE + VALID_MODULE_1 + WHITESPACE;
+        Module expectedModule = new Module(VALID_MODULE_1);
+        assertEquals(expectedModule, ParserUtil.parseModule(moduleWithWhitespace));
+    }
+
+    @Test
+    public void parseModules_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseModules(null));
+    }
+
+    @Test
+    public void parseModules_collectionWithInvalidModules_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseModules(
+                Arrays.asList(VALID_MODULE_1, INVALID_MODULE)));
+    }
+
+    @Test
+    public void parseModules_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseModules(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseModules_collectionWithValidModules_returnsModuleSet() throws Exception {
+        Set<Module> actualModuleSet = ParserUtil.parseModules(Arrays.asList(VALID_MODULE_1, VALID_MODULE_2));
+        Set<Module> expectedModuleSet = new HashSet<Module>(
+                Arrays.asList(new Module(VALID_MODULE_1), new Module(VALID_MODULE_2)));
+
+        assertEquals(expectedModuleSet, actualModuleSet);
     }
 
     @Test

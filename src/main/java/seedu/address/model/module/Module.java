@@ -10,8 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Module {
 
-    public static final String MESSAGE_CONSTRAINTS = "Module names should consist of 2 to 4 uppercase letters, followed by 4 digits, "
-            + "and optionally ending with 1/2 uppercase letter. For example, CS2103T, GESS1101, CS2040DE.";
+    public static final String MESSAGE_CONSTRAINTS = "Module names should consist of 2 to 4 uppercase letters, "
+            + "followed by 4 digits, "
+            + "and optionally ending with 1/2 uppercase letter. "
+            + "For example, CS2103T, GESS1101, CS2040DE.";
     public static final String VALIDATION_REGEX = "^[A-Z]{2,4}\\d{4}[A-Z]?[A-Z]?$";
 
     public final String moduleName;
