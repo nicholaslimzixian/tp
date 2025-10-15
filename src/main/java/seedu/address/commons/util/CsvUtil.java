@@ -17,6 +17,7 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.favorite.Favorite;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -56,9 +57,10 @@ public class CsvUtil {
                 Email email = new Email(nextLine[2].trim());
                 Address address = new Address(nextLine[3]);
                 Set<Tag> allTags = parseTags(nextLine[4]);
-                Set<Faculty> allFaculties = parseFaculties(nextLine[5]);
+                Set<Module> allModules = parseModules(nextLine[5]);
+                Set<Faculty> allFaculties = parseFaculties(nextLine[6]);
 
-                Person newPerson = new Person(name, phoneNo, email, address, allTags, allFaculties,
+                Person newPerson = new Person(name, phoneNo, email, address, allTags, allModules, allFaculties,
                         Favorite.DEFAULT_NOT_FAVORITE);
 
                 contacts.add(newPerson);
@@ -124,6 +126,23 @@ public class CsvUtil {
             }
         }
         return allTags;
+    }
+
+    /**
+     * Helper method to parse a pipe-separated string into a set of {@link Module}.
+     */
+    private static Set<Module> parseModules(String moduleString) {
+        Set<Module> allModules = new HashSet<>();
+        if (moduleString != null && !moduleString.isEmpty()) {
+            String[] moduleParts = moduleString.split("\\|");
+            for (String m : moduleParts) {
+                m = m.trim();
+                if (!m.isEmpty()) {
+                    allModules.add(new Module(m));
+                }
+            }
+        }
+        return allModules;
     }
 
     /**

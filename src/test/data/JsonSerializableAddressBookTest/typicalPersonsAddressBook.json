@@ -6,6 +6,7 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ],
+    "modules": [ "CS2103T" ],
     "faculties": [ "Engineering" ]
   }, {
     "name" : "Benson Meier",
@@ -13,6 +14,7 @@
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ],
+    "modules": [ "CS2103T", "GESS2109" ],
     "faculties": [ "Business" ]
   }, {
     "name" : "Carl Kurz",
@@ -20,6 +22,7 @@
     "email" : "heinz@example.com",
     "address" : "wall street",
     "tags" : [ ],
+    "modules": [ ],
     "faculties": [ ]
   }, {
     "name" : "Daniel Meier",
@@ -27,6 +30,7 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tags" : [ "friends" ],
+    "modules": [ "CS2103T" ],
     "faculties": [ "Arts" ]
   }, {
     "name" : "Elle Meyer",
@@ -34,6 +38,7 @@
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tags" : [ ],
+    "modules": [ ],
     "faculties": [ "Science" ]
   }, {
     "name" : "Fiona Kunz",
@@ -41,6 +46,7 @@
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "tags" : [ ],
+    "modules": [ "CS2103T" ],
     "faculties": [ "Law" ]
   }, {
     "name" : "George Best",
@@ -48,6 +54,7 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tags" : [ ],
+    "modules": [ ],
     "faculties": [ "Medicine" ]
   } ]
 }

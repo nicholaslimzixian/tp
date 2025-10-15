@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.favorite.Favorite;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -28,6 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Set<Module> modules;
     private Set<Faculty> faculties;
     private Favorite favorite;
 
@@ -40,6 +42,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        modules = new HashSet<>();
         faculties = new HashSet<>();
         favorite = Favorite.DEFAULT_NOT_FAVORITE;
     }
@@ -53,6 +56,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        modules = new HashSet<>(personToCopy.getModules());
         faculties = new HashSet<>(personToCopy.getFaculties());
         favorite = personToCopy.getFavorite();
     }
@@ -70,6 +74,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code modules} into a {@code Set<Module>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withModules(String... modules) {
+        this.modules = SampleDataUtil.getModuleSet(modules);
         return this;
     }
 
@@ -115,7 +127,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, faculties, favorite);
+        return new Person(name, phone, email, address, tags, modules, faculties, favorite);
     }
 
 }
