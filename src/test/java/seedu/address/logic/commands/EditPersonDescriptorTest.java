@@ -77,7 +77,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getAddress().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", modules="
                 + editPersonDescriptor.getModules().orElse(null) + ", faculties="
-                + editPersonDescriptor.getFaculties().orElse(null) + "}";
+                + editPersonDescriptor.getFaculties().orElse(null) + ", favorite="
+                + editPersonDescriptor.getFavorite().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

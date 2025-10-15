@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -24,6 +25,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.favorite.Favorite;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -49,7 +51,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_MODULE + "MODULE]..."
-            + "[" + PREFIX_FACULTY + "FACULTY]...\n"
+            + "[" + PREFIX_FACULTY + "FACULTY]... "
+            + "[" + PREFIX_FAVORITE + "FAVORITE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -108,6 +111,8 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Set<Module> updatedModules = editPersonDescriptor.getModules().orElse(personToEdit.getModules());
         Set<Faculty> updatedFaculties = editPersonDescriptor.getFaculties().orElse(personToEdit.getFaculties());
+        Favorite updatedFavorite = editPersonDescriptor.getFavorite().orElse(personToEdit.getFavorite());
+
         return new Person(
             updatedName,
             updatedPhone,
@@ -115,7 +120,8 @@ public class EditCommand extends Command {
             updatedAddress,
             updatedTags,
             updatedModules,
-            updatedFaculties);
+            updatedFaculties,
+            updatedFavorite);
     }
 
     @Override
@@ -154,6 +160,7 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private Set<Module> modules;
         private Set<Faculty> faculties;
+        private Favorite favorite;
 
         public EditPersonDescriptor() {}
 
@@ -169,13 +176,14 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setModules(toCopy.modules);
             setFaculties(toCopy.faculties);
+            setFavorite(toCopy.favorite);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, modules, faculties);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, modules, faculties, favorite);
         }
 
         public void setName(Name name) {
@@ -263,6 +271,14 @@ public class EditCommand extends Command {
             return (faculties != null) ? Optional.of(Collections.unmodifiableSet(faculties)) : Optional.empty();
         }
 
+        public void setFavorite(Favorite favorite) {
+            this.favorite = favorite;
+        }
+
+        public Optional<Favorite> getFavorite() {
+            return Optional.ofNullable(favorite);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -281,7 +297,8 @@ public class EditCommand extends Command {
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
                     && Objects.equals(modules, otherEditPersonDescriptor.modules)
-                    && Objects.equals(faculties, otherEditPersonDescriptor.faculties);
+                    && Objects.equals(faculties, otherEditPersonDescriptor.faculties)
+                    && Objects.equals(favorite, otherEditPersonDescriptor.favorite);
         }
 
         @Override
@@ -294,6 +311,7 @@ public class EditCommand extends Command {
                     .add("tags", tags)
                     .add("modules", modules)
                     .add("faculties", faculties)
+                    .add("favorite", favorite)
                     .toString();
         }
     }

@@ -529,20 +529,54 @@ Use case ends.
     Use case ends.
 
 **UC10: Select a faculty**
-TODO
 
+Guarantees: Default administrative contacts for the selected faculty will be preloaded.
+
+**MSS**
+
+1. User requests to select a faculty
+2. CampusBook validates the faculty name
+3. CampusBook preloads the administrative contacts for the selected faculty
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The given faculty is invalid. 
+  * 2a1. CampusBook shows an error message and lists valid faculties.
+    Use case resumes at step 1.
+
+* 3a. Some contacts already exist in the list.
+  * 3a1. CampusBook skips duplicates and logs a warning. 
+    Use case ends.
 
 **UC11: View command history**
-TODO
 
----
+Guarantees: User can view and reuse previously executed commands in the current session.
 
-**Alternate Scenarios**
+**MSS**
 
-*3a.* User requests to clear the command history after viewing.  
- 3a1. CampusBook confirms the action.  
- 3a2. Upon confirmation, command history is cleared.  
- Use case ends.
+1. User requests to view command history.
+2. CampusBook shows the list of previously executed commands
+3. User selects a command from history to reuse.
+4. CampusBook loads the selected command into the command box
+5. User edits or executes the command.
+
+Use case ends.
+
+**Extensions**
+
+* 2a. There is no command history. 
+  * 2a1. CampusBook shows a message indicating the history is empty.
+    Use case ends.
+
+* 3a. The given selection is invalid.
+  * 3a1. CampusBook shows an error message.
+  Use case resumes at step 2.
+
+* 3b. User navigates the command history using keyboard (e.g. Up/Down keys).
+  * 3b1. CampusBook cycles through previous commands without executing.
+  Use case resumes at step 5.
 
 ---
 

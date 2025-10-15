@@ -39,6 +39,7 @@ public class JsonAdaptedPersonTest {
     private static final List<JsonAdaptedFaculty> VALID_FACULTIES = BENSON.getFaculties().stream()
             .map(JsonAdaptedFaculty::new)
             .collect(Collectors.toList());
+    private static final String VALID_FAVORITE = BENSON.getFavorite().toString();
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
@@ -55,7 +56,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -69,7 +71,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -83,7 +86,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -97,7 +101,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -111,7 +116,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -125,7 +131,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -139,7 +146,8 @@ public class JsonAdaptedPersonTest {
             INVALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -153,7 +161,8 @@ public class JsonAdaptedPersonTest {
             null,
             VALID_TAGS,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -169,7 +178,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             invalidTags,
             VALID_MODULES,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 
@@ -184,7 +194,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             invalidModules,
-            VALID_FACULTIES);
+            VALID_FACULTIES,
+            VALID_FAVORITE);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 
@@ -199,7 +210,8 @@ public class JsonAdaptedPersonTest {
             VALID_ADDRESS,
             VALID_TAGS,
             VALID_MODULES,
-            invalidFaculties);
+            invalidFaculties,
+            VALID_FAVORITE);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 

@@ -116,7 +116,8 @@ public class PersonTest {
             + ", address=" + ALICE.getAddress()
             + ", tags=" + ALICE.getTags()
             + ", modules=" + ALICE.getModules()
-            + ", faculties=" + ALICE.getFaculties() + "}";
+            + ", faculties=" + ALICE.getFaculties()
+            + ", favorite=" + ALICE.getFavorite() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

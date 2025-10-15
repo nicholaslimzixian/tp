@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.favorite.Favorite;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -28,7 +29,8 @@ public class SampleDataUtil {
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends"),
                 getModuleSet("CS2103T", "MA1101R"),
-                getFacultySet("Science")),
+                getFacultySet("Science"),
+                Favorite.DEFAULT_NOT_FAVORITE),
             new Person(
                 new Name("Bernice Yu"),
                 new Phone("99272758"),
@@ -36,7 +38,8 @@ public class SampleDataUtil {
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("cca mate", "friends"),
                 getModuleSet("CS2101"),
-                getFacultySet("Business")),
+                getFacultySet("Business"),
+                Favorite.DEFAULT_NOT_FAVORITE),
             new Person(
                 new Name("Charlotte Oliveiro"),
                 new Phone("93210283"),
@@ -44,7 +47,8 @@ public class SampleDataUtil {
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("friends"),
                 getModuleSet("GEQ1000"),
-                getFacultySet("Arts")),
+                getFacultySet("Arts"),
+                Favorite.DEFAULT_NOT_FAVORITE),
             new Person(
                 new Name("David Li"),
                 new Phone("91031282"),
@@ -52,7 +56,8 @@ public class SampleDataUtil {
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("lab partner"),
                 getModuleSet("CS2105", "CS2101"),
-                getFacultySet("Computing")),
+                getFacultySet("Computing"),
+                Favorite.DEFAULT_NOT_FAVORITE),
             new Person(
                 new Name("Irfan Ibrahim"),
                 new Phone("92492021"),
@@ -60,7 +65,8 @@ public class SampleDataUtil {
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("classmates"),
                 getModuleSet("CS2103T"),
-                getFacultySet("Engineering")),
+                getFacultySet("Engineering"),
+                Favorite.DEFAULT_NOT_FAVORITE),
             new Person(
                 new Name("Roy Balakrishnan"),
                 new Phone("92624417"),
@@ -68,7 +74,8 @@ public class SampleDataUtil {
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("classmates"),
                 getModuleSet("MA1101R", "GEQ1000"),
-                getFacultySet("Business"))
+                getFacultySet("Business"),
+                Favorite.DEFAULT_NOT_FAVORITE)
         };
     }
 

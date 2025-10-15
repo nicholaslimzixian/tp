@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.favorite.Favorite;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -30,6 +31,7 @@ public class PersonBuilder {
     private Set<Tag> tags;
     private Set<Module> modules;
     private Set<Faculty> faculties;
+    private Favorite favorite;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -42,6 +44,7 @@ public class PersonBuilder {
         tags = new HashSet<>();
         modules = new HashSet<>();
         faculties = new HashSet<>();
+        favorite = Favorite.DEFAULT_NOT_FAVORITE;
     }
 
     /**
@@ -55,6 +58,7 @@ public class PersonBuilder {
         tags = new HashSet<>(personToCopy.getTags());
         modules = new HashSet<>(personToCopy.getModules());
         faculties = new HashSet<>(personToCopy.getFaculties());
+        favorite = personToCopy.getFavorite();
     }
 
     /**
@@ -114,8 +118,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Favorite} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withFavorite(boolean isFavorite) {
+        this.favorite = new Favorite(isFavorite);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags, modules, faculties);
+        return new Person(name, phone, email, address, tags, modules, faculties, favorite);
     }
 
 }

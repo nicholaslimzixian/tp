@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.favorite.Favorite;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
     private final List<JsonAdaptedFaculty> faculties = new ArrayList<>();
+    private final String favorite;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -42,7 +44,8 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
             @JsonProperty("modules") List<JsonAdaptedModule> modules,
-            @JsonProperty("faculties") List<JsonAdaptedFaculty> faculties) {
+            @JsonProperty("faculties") List<JsonAdaptedFaculty> faculties,
+            @JsonProperty("favorite") String favorite) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -56,6 +59,7 @@ class JsonAdaptedPerson {
         if (faculties != null) {
             this.faculties.addAll(faculties);
         }
+        this.favorite = favorite;
     }
 
     /**
@@ -75,6 +79,7 @@ class JsonAdaptedPerson {
         faculties.addAll(source.getFaculties().stream()
                 .map(JsonAdaptedFaculty::new)
                 .collect(Collectors.toList()));
+        favorite = source.getFavorite().toString();
     }
 
     /**
@@ -137,7 +142,23 @@ class JsonAdaptedPerson {
         final Set<Module> modelModules = new HashSet<>(personModules);
 
         final Set<Faculty> modelFaculties = new HashSet<>(personFaculties);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelModules, modelFaculties);
+
+        if (favorite != null && !Favorite.isValidFavorite(favorite)) {
+            throw new IllegalValueException(Favorite.MESSAGE_CONSTRAINTS);
+        }
+        final Favorite modelFavorite = favorite == null
+                ? Favorite.DEFAULT_NOT_FAVORITE
+                : new Favorite(favorite);
+
+        return new Person(
+            modelName,
+            modelPhone,
+            modelEmail,
+            modelAddress,
+            modelTags,
+            modelModules,
+            modelFaculties,
+            modelFavorite);
     }
 
 }

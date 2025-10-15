@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.faculty.Faculty;
+import seedu.address.model.favorite.Favorite;
 import seedu.address.model.module.Module;
 import seedu.address.model.tag.Tag;
 
@@ -28,6 +29,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Module> modules = new HashSet<>();
     private final Set<Faculty> faculties = new HashSet<>();
+    private final Favorite favorite;
 
     /**
      * Every field must be present and not null.
@@ -39,8 +41,10 @@ public class Person {
         Address address,
         Set<Tag> tags,
         Set<Module> modules,
-        Set<Faculty> faculties) {
-        requireAllNonNull(name, phone, email, address, tags, modules, faculties);
+        Set<Faculty> faculties,
+        Favorite favorite) {
+        requireAllNonNull(name, phone, email, address, tags, modules, faculties, favorite);
+
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -48,6 +52,7 @@ public class Person {
         this.tags.addAll(tags);
         this.modules.addAll(modules);
         this.faculties.addAll(faculties);
+        this.favorite = favorite;
     }
 
     public Name getName() {
@@ -90,6 +95,10 @@ public class Person {
         return Collections.unmodifiableSet(faculties);
     }
 
+    public Favorite getFavorite() {
+        return favorite;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -125,13 +134,14 @@ public class Person {
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
                 && modules.equals(otherPerson.modules)
-                && faculties.equals(otherPerson.faculties);
+                && faculties.equals(otherPerson.faculties)
+                && favorite.equals(otherPerson.favorite);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, modules, faculties);
+        return Objects.hash(name, phone, email, address, tags, modules, faculties, favorite);
     }
 
     @Override
@@ -144,6 +154,7 @@ public class Person {
                 .add("tags", tags)
                 .add("modules", modules)
                 .add("faculties", faculties)
+                .add("favorite", favorite)
                 .toString();
     }
 
