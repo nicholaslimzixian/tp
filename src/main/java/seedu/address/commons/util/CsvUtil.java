@@ -30,7 +30,7 @@ import seedu.address.model.tag.Tag;
  */
 public class CsvUtil {
     private static final String[] HEADERS = {"Name", "Phone Number", "Email",
-                                             "Address", "Tags", "Modules", "Faculties"};
+                                             "Address", "Tags", "Modules", "Faculties", "Favorites"};
 
     /**
      * Reads contacts from a CSV file.
@@ -53,6 +53,7 @@ public class CsvUtil {
             csvReader.readNext();
 
             while ((nextLine = csvReader.readNext()) != null) {
+
                 Name name = new Name(nextLine[0].trim());
                 Phone phoneNo = new Phone(nextLine[1].trim());
                 Email email = new Email(nextLine[2].trim());
@@ -60,9 +61,10 @@ public class CsvUtil {
                 Set<Tag> allTags = parseTags(nextLine[4]);
                 Set<Module> allModules = parseModules(nextLine[5]);
                 Set<Faculty> allFaculties = parseFaculties(nextLine[6]);
+                Favorite favorite = new Favorite(Boolean.parseBoolean(nextLine[7].trim()));
 
                 Person newPerson = new Person(name, phoneNo, email, address, allTags, allModules, allFaculties,
-                        Favorite.DEFAULT_NOT_FAVORITE);
+                        favorite);
 
                 contacts.add(newPerson);
             }
@@ -110,7 +112,9 @@ public class CsvUtil {
                         .map(Faculty -> Faculty.facultyName)
                         .collect(Collectors.joining("|"));
 
-                String[] line = {name, phone, email, address, tags, modules, faculties};
+                String favorite = p.getFavorite().toString();
+
+                String[] line = {name, phone, email, address, tags, modules, faculties, favorite};
                 csvWriter.writeNext(line);
             }
         }

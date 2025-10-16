@@ -1,6 +1,8 @@
-package seedu.address.testutil;
+package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -14,7 +16,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.opencsv.exceptions.CsvValidationException;
 
-import seedu.address.commons.util.CsvUtil;
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.favorite.Favorite;
 import seedu.address.model.module.Module;
@@ -24,7 +25,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
 
 class CsvUtilTest {
 
@@ -93,5 +93,40 @@ class CsvUtilTest {
 
         List<Person> contacts = CsvUtil.readContactsFromCsv(emptyCsv);
         assertTrue(contacts.isEmpty());
+    }
+
+    @Test
+    public void readContactsFromCsv_emptyOptionalFields_success()
+            throws IOException, CsvValidationException {
+
+        // ✅ Prepare a temporary CSV file
+        Path csvFile = tempDir.resolve("test.csv");
+        String csvContent = String.join(System.lineSeparator(),
+                "Name,Phone Number,Email,Address,Tags,Modules,Faculties,Favorites",
+                "Alice Pauline,94351253,alice@example.com,123 Jurong West Ave 6,,,," // <-- optional fields empty
+        );
+        Files.writeString(csvFile, csvContent);
+
+        // ✅ Act: Read CSV file
+        List<Person> contacts = CsvUtil.readContactsFromCsv(csvFile);
+
+        // ✅ Assert: Only one person read successfully
+        assertEquals(1, contacts.size());
+        Person alice = contacts.get(0);
+        assertNotNull(alice);
+
+        // Check required fields
+        assertEquals("Alice Pauline", alice.getName().fullName);
+        assertEquals("94351253", alice.getPhone().value);
+        assertEquals("alice@example.com", alice.getEmail().value);
+        assertEquals("123 Jurong West Ave 6", alice.getAddress().value);
+
+        // Check optional fields are empty
+        assertEquals(0, alice.getTags().size());
+        assertEquals(0, alice.getModules().size());
+        assertEquals(0, alice.getFaculties().size());
+
+        // Check favorite parsed correctly (empty → false)
+        assertFalse(alice.getFavorite().getIsFavorite());
     }
 }
