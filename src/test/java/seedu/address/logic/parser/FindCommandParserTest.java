@@ -53,7 +53,8 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommandFaculty =
                 new FindCommand(new FacultyContainsKeywordsPredicate(Arrays.asList("Computing", "Science")));
         assertParseSuccess(parser, " " + PREFIX_FACULTY + "Computing Science", expectedFindCommandFaculty);
-        assertParseSuccess(parser, " " + PREFIX_FACULTY + " \n Computing \n \t Science  \t", expectedFindCommandFaculty);
+        assertParseSuccess(parser, " " + PREFIX_FACULTY + " \n Computing \n \t Science  \t",
+                expectedFindCommandFaculty);
 
         // find by module
         List<String> moduleKeywords = Arrays.asList("CS2103T", "CS2100");
