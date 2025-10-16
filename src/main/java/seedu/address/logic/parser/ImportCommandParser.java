@@ -19,6 +19,13 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     @Override
     public ImportCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
+
+        userInput = userInput.trim();
+        if ((userInput.startsWith("\"") && userInput.endsWith("\""))
+                || (userInput.startsWith("'") && userInput.endsWith("'"))) {
+            userInput = userInput.substring(1, userInput.length() - 1);
+        }
+
         try {
             Path path = Paths.get(userInput);
             if (!userInput.endsWith(".csv") || !Files.exists(path) || !Files.isRegularFile(path)) {
