@@ -193,5 +193,4 @@ public class ParserUtil {
         }
         return facultySet;
     }
-
 }
