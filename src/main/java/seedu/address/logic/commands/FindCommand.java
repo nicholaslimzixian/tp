@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -21,13 +22,15 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all persons who match all of the specified criteria "
-            + "(name, tag, and/or faculty) and displays them as a list with index numbers.\n"
-            + "Parameters: "
-            + "[" + PREFIX_NAME + "NAME_KEYWORD [MORE_KEYWORDS]...] "
-            + "[" + PREFIX_TAG + "TAG_KEYWORD [MORE_KEYWORDS]...] "
-            + "[" + PREFIX_FACULTY + "FACULTY_KEYWORD [MORE_KEYWORDS]...]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice " + PREFIX_FACULTY + "computing";
+        + ": Finds all persons who match all of the specified criteria "
+        + "(name, tag, module, and/or faculty) and displays them as a list with index numbers.\n"
+        + "Parameters: "
+        + "[" + PREFIX_NAME + "NAME_KEYWORD [MORE_KEYWORDS]...] "
+        + "[" + PREFIX_TAG + "TAG_KEYWORD [MORE_KEYWORDS]...] "
+        + "[" + PREFIX_MODULE + "MODULE_KEYWORD [MORE_KEYWORDS]...] "
+        + "[" + PREFIX_FACULTY + "FACULTY_KEYWORD [MORE_KEYWORDS]...]\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice "
+        + PREFIX_MODULE + "CS2103T " + PREFIX_FACULTY + "computing";
 
 
     private final Predicate<Person> predicate;
