@@ -1,5 +1,10 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,7 +16,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.opencsv.exceptions.CsvValidationException;
 
-import seedu.address.commons.util.CsvUtil;
 import seedu.address.model.faculty.Faculty;
 import seedu.address.model.favorite.Favorite;
 import seedu.address.model.module.Module;
@@ -21,9 +25,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 class CsvUtilTest {
 

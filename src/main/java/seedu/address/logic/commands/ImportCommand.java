@@ -1,16 +1,18 @@
 package seedu.address.logic.commands;
 
-import com.opencsv.exceptions.CsvValidationException;
-import seedu.address.commons.util.CsvUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import com.opencsv.exceptions.CsvValidationException;
+
+import seedu.address.commons.util.CsvUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.person.Person;
+
 
 /**
  * Imports a CSV file and loads the contacts into the address book.
@@ -26,8 +28,14 @@ public class ImportCommand extends Command {
             + "Parameters: Path file (must be the full path)\n"
             + "Example: " + COMMAND_WORD + " C://Users//djsud//Downloads//CampusBook_contacts.csv";
 
-    public Path path;
+    private Path path;
 
+    /**
+     * Constructs an {@code ImportCommand} with the specified CSV file path.
+     *
+     * @param path the {@link Path} to the CSV file to import; must not be null
+     * @throws NullPointerException if {@code path} is null
+     */
     public ImportCommand(Path path) {
         requireNonNull(path);
         this.path = path;
@@ -56,5 +64,13 @@ public class ImportCommand extends Command {
         );
 
         return new CommandResult(message);
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
     }
 }
