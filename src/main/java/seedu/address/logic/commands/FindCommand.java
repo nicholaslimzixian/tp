@@ -29,7 +29,8 @@ public class FindCommand extends Command {
         + "[" + PREFIX_TAG + "TAG_KEYWORD [MORE_KEYWORDS]...] "
         + "[" + PREFIX_MODULE + "MODULE_KEYWORD [MORE_KEYWORDS]...] "
         + "[" + PREFIX_FACULTY + "FACULTY_KEYWORD [MORE_KEYWORDS]...]\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice " + PREFIX_MODULE + "CS2103T " + PREFIX_FACULTY + "computing";
+        + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice "
+        + PREFIX_MODULE + "CS2103T " + PREFIX_FACULTY + "computing";
 
 
     private final Predicate<Person> predicate;
