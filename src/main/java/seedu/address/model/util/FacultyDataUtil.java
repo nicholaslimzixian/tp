@@ -108,6 +108,10 @@ public class FacultyDataUtil {
      * Returns a Module set containing the list of strings given.
      */
     public static Set<Module> getModuleSet(String... strings) {
+        // This now correctly handles cases where no modules are provided
+        if (strings.length == 1 && strings[0].isEmpty()) {
+            return Set.of();
+        }
         return Arrays.stream(strings)
                 .map(Module::new)
                 .collect(Collectors.toSet());

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -34,6 +36,9 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        // Sort the address book by favorite status on initialization
+        sortByFavoriteStatus();
     }
 
     public ModelManager() {
@@ -102,20 +107,33 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // If adding a favorite contact, place it at the top
+        if (person.getFavorite().getIsFavorite()) {
+            sortByFavoriteStatus(person);
+        }
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
+        // Check if favorite status has actually changed
+        boolean favoriteStatusChanged = !target.getFavorite().equals(editedPerson.getFavorite());
+
+        // Update the person data
         addressBook.setPerson(target, editedPerson);
+
+        // Only sort if favorite status has changed
+        if (favoriteStatusChanged) {
+            sortByFavoriteStatus(editedPerson);
+        }
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the filtered list of {@code Person}.
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -126,6 +144,65 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Sorting Methods ============================================================================
+
+    /**
+     * Sorts the entire address book by favorite status.
+     * Favorite contacts appear first, followed by non-favorites.
+     * Within each group, the original order is preserved.
+     */
+    private void sortByFavoriteStatus() {
+        sortByFavoriteStatus(null);
+    }
+
+    /**
+     * Sorts the address book by favorite status, with special handling for the edited person.
+     * If a person is newly favorited, they are placed at the top of the favorites group.
+     * If a person is unfavorited, they are placed at the bottom of the non-favorites group.
+     *
+     * @param editedPerson The person whose favorite status was changed, or null for general sorting
+     */
+    private void sortByFavoriteStatus(Person editedPerson) {
+        // Get the complete underlying list (not affected by filters)
+        ObservableList<Person> personList = addressBook.getPersonList();
+        List<Person> allPersons = new ArrayList<>(personList);
+
+        List<Person> favorites = new ArrayList<>();
+        List<Person> nonFavorites = new ArrayList<>();
+
+        // If editedPerson is newly favorited, add them first
+        if (editedPerson != null && editedPerson.getFavorite().getIsFavorite()) {
+            favorites.add(editedPerson);
+        }
+
+        // Separate remaining contacts, preserving original order within each group
+        for (Person person : allPersons) {
+            // Skip the editedPerson as it's already handled
+            if (editedPerson != null && person.equals(editedPerson)) {
+                continue;
+            }
+
+            if (person.getFavorite().getIsFavorite()) {
+                favorites.add(person);
+            } else {
+                nonFavorites.add(person);
+            }
+        }
+
+        // If editedPerson is unfavorited, add them last to non-favorites
+        if (editedPerson != null && !editedPerson.getFavorite().getIsFavorite()) {
+            nonFavorites.add(editedPerson);
+        }
+
+        // Recombine: favorites first, then non-favorites
+        List<Person> sortedList = new ArrayList<>();
+        sortedList.addAll(favorites);
+        sortedList.addAll(nonFavorites);
+
+        // Update the underlying list
+        addressBook.setPersons(sortedList);
     }
 
     @Override
