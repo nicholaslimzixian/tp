@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -14,6 +15,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.FacultyContainsKeywordsPredicate;
+import seedu.address.model.person.ModuleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TagContainsKeywordsPredicate;
@@ -53,6 +55,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (argMultimap.getValue(PREFIX_FACULTY).isPresent()) {
             String[] facultyKeywords = argMultimap.getValue(PREFIX_FACULTY).get().split("\\s+");
             predicates.add(new FacultyContainsKeywordsPredicate(Arrays.asList(facultyKeywords)));
+        }
+
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+            String[] moduleKeywords = argMultimap.getValue(PREFIX_MODULE).get().split("\\s+");
+            predicates.add(new ModuleContainsKeywordsPredicate(Arrays.asList(moduleKeywords)));
         }
 
         Predicate<Person> combinedPredicate = predicates.stream().reduce(Predicate::and).orElse(p -> true);
