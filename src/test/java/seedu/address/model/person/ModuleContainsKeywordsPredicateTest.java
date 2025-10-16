@@ -19,13 +19,15 @@ public class ModuleContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         ModuleContainsKeywordsPredicate firstPredicate = new ModuleContainsKeywordsPredicate(firstPredicateKeywordList);
-        ModuleContainsKeywordsPredicate secondPredicate = new ModuleContainsKeywordsPredicate(secondPredicateKeywordList);
+        ModuleContainsKeywordsPredicate secondPredicate = new ModuleContainsKeywordsPredicate(
+            secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        ModuleContainsKeywordsPredicate firstPredicateCopy = new ModuleContainsKeywordsPredicate(firstPredicateKeywordList);
+        ModuleContainsKeywordsPredicate firstPredicateCopy = new ModuleContainsKeywordsPredicate(
+            firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +43,8 @@ public class ModuleContainsKeywordsPredicateTest {
     @Test
     public void test_moduleContainsKeywords_returnsTrue() {
         // One keyword
-        ModuleContainsKeywordsPredicate predicate = new ModuleContainsKeywordsPredicate(Collections.singletonList("CS2103T"));
+        ModuleContainsKeywordsPredicate predicate = new ModuleContainsKeywordsPredicate(
+            Collections.singletonList("CS2103T"));
         assertTrue(predicate.test(new PersonBuilder().withModules("CS2103T").build()));
 
         // Multiple keywords
@@ -68,7 +71,8 @@ public class ModuleContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new PersonBuilder().withModules("CS2103T", "CS2101").build()));
 
         // Keywords match name, phone, email and address, but does not match module
-        predicate = new ModuleContainsKeywordsPredicate(Arrays.asList("Alice", "12345", "alice@email.com", "Main", "Street"));
+        predicate = new ModuleContainsKeywordsPredicate(
+            Arrays.asList("Alice", "12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").withModules("CS2103T").build()));
     }
