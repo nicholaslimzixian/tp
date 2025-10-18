@@ -6,18 +6,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 
 /**
  * A class to access command history stored in the hard disk as a json file
  */
 public class JsonCommandHistoryStorage implements CommandHistoryStorage {
-
-    private static final Logger logger = LogsCenter.getLogger(JsonCommandHistoryStorage.class);
 
     private Path filePath;
 
@@ -53,6 +50,8 @@ public class JsonCommandHistoryStorage implements CommandHistoryStorage {
     @Override
     public void saveCommandHistory(List<String> commandHistory) throws IOException {
         requireNonNull(commandHistory);
+
+        FileUtil.createIfMissing(filePath);
         JsonSerializableCommandHistory jsonCommandHistory =
                 new JsonSerializableCommandHistory(commandHistory);
         JsonUtil.saveJsonFile(jsonCommandHistory, filePath);
