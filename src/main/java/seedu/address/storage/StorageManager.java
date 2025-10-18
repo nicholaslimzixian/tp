@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -21,6 +22,15 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private CommandHistoryStorage commandHistoryStorage;
+
+    /**
+     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefsStorage}.
+     * CommandHistoryStorage is created with default path.
+     */
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+        this(addressBookStorage, userPrefsStorage,
+                new JsonCommandHistoryStorage(Paths.get("data", "commandhistory.json")));
+    }
 
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage}, {@code UserPrefsStorage}
