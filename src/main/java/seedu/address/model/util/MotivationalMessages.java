@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.util.List;
 import java.util.Random;
 
+
 /**
  * Contains a list of motivational messages for students.
  */
