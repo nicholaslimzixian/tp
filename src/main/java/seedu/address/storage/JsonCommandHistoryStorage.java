@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -50,6 +52,7 @@ public class JsonCommandHistoryStorage implements CommandHistoryStorage {
 
     @Override
     public void saveCommandHistory(List<String> commandHistory) throws IOException {
+        requireNonNull(commandHistory);
         JsonSerializableCommandHistory jsonCommandHistory =
                 new JsonSerializableCommandHistory(commandHistory);
         JsonUtil.saveJsonFile(jsonCommandHistory, filePath);

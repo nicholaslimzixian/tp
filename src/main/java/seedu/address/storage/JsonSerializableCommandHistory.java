@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +15,17 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName(value = "commandhistory")
 class JsonSerializableCommandHistory {
 
-    private final List<String> commands;
+    private final List<String> history;
 
     /**
-     * Constructs a {@code JsonSerializableCommandHistory} with the given commands.
+     * Constructs a {@code JsonSerializableCommandHistory} with the given history.
+     *
+     * @throws NullPointerException if history is null (indicates invalid JSON format).
      */
     @JsonCreator
-    public JsonSerializableCommandHistory(@JsonProperty("commands") List<String> commands) {
-        this.commands = commands != null ? new ArrayList<>(commands) : new ArrayList<>();
+    public JsonSerializableCommandHistory(@JsonProperty("history") List<String> history) {
+        requireNonNull(history, "History field is missing in JSON");
+        this.history = new ArrayList<>(history);
     }
 
     /**
@@ -29,7 +34,7 @@ class JsonSerializableCommandHistory {
      * @return A list of command strings.
      */
     public List<String> toModelType() {
-        return new ArrayList<>(commands);
+        return new ArrayList<>(history);
     }
 }
 

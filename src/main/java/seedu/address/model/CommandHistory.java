@@ -27,18 +27,25 @@ public class CommandHistory {
 
     /**
      * Creates a CommandHistory initialized with the given history.
+     * If the history exceeds the maximum size, only the most recent commands are kept.
      *
      * @param history The initial command history.
      */
     public CommandHistory(List<String> history) {
         requireNonNull(history);
         this.history = new ArrayList<>(history);
+
+        // Trim to max size if needed, keeping the most recent commands
+        if (this.history.size() > MAX_HISTORY_SIZE) {
+            this.history.subList(0, this.history.size() - MAX_HISTORY_SIZE).clear();
+        }
+
         this.currentPosition = this.history.size();
     }
 
     /**
      * Adds a command to the history.
-     * Skips adding if the command is the same as the most recent command.
+     * Skips adding if the command is empty, whitespace-only, or the same as the most recent command.
      * Removes the oldest command if the history exceeds the maximum size.
      * Resets the navigation position to the end of the history.
      *
@@ -46,6 +53,11 @@ public class CommandHistory {
      */
     public void addCommand(String command) {
         requireNonNull(command);
+
+        // Skip if command is empty or whitespace-only
+        if (command.trim().isEmpty()) {
+            return;
+        }
 
         // Skip if command is the same as the most recent command
         if (!history.isEmpty() && history.get(history.size() - 1).equals(command)) {
