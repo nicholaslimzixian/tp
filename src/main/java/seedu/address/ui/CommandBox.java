@@ -39,13 +39,13 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Creates a {@code CommandBox} with the given {@code Logic}.
+     * Creates a {@code CommandBox} with the given {@code CommandExecutor} and {@code Logic}.
      * This constructor enables command history navigation.
      */
-    public CommandBox(Logic logic) {
+    public CommandBox(CommandExecutor commandExecutor, Logic logic) {
         super(FXML);
+        this.commandExecutor = commandExecutor;
         this.logic = logic;
-        this.commandExecutor = logic::execute;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         setupKeyboardNavigation();
