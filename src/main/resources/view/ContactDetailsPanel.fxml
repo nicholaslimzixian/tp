@@ -14,8 +14,7 @@
         </HBox>
 
         <VBox spacing="10" styleClass="details-card">
-            <Label text="Contact Details" styleClass="details-section-title"/> 
-
+            <Label text="Contact Details" styleClass="details-section-title"/>
                 <!-- Contact fields -->
                 <VBox spacing="8">
                     <HBox spacing="10" alignment="CENTER_LEFT">
