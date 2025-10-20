@@ -231,7 +231,8 @@ public class DeleteCommandTest {
         Predicate<Person> predicate = new NameContainsKeywordsPredicate(List.of("keyword"));
         List<Predicate<Person>> predicates = List.of(predicate);
         DeleteCommand deleteCommandPredicate = new DeleteCommand(predicates);
-        String expectedPredicate = DeleteCommand.class.getCanonicalName() + "{predicates=" + predicates.toString() + "}";
+        String expectedPredicate = DeleteCommand.class.getCanonicalName()
+                + "{predicates=" + predicates.toString() + "}";
         assertEquals(expectedPredicate, deleteCommandPredicate.toString());
     }
 

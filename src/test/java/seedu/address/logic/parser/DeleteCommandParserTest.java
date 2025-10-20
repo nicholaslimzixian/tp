@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.TagContainsKeywordsPredicate;
 
 public class DeleteCommandParserTest {
@@ -45,7 +43,7 @@ public class DeleteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_noIndexNoPrefix_throwsParseException() {
+    public void parse_invalidArgs_throwsParseException() {
         // Test arguments that are neither a valid index nor contain prefixes
         assertParseFailure(parser, "Some random text", messageUsage);
     }
@@ -85,7 +83,7 @@ public class DeleteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidCriteria_emptyKeyword_throwsParseException() {
+    public void parse_invalidCriteria_throwsParseException() {
         // Test cases where a prefix is provided but the keyword is empty
 
         // Only "n/"
