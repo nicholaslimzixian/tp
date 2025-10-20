@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
 /**
@@ -40,6 +39,9 @@ public class ContactDetailsPanel extends UiPart<ScrollPane> {
     @FXML
     private FlowPane tags;
 
+    /**
+     * Creates a {@code ContactDetailsPanel} with no person selected.
+     */
     public ContactDetailsPanel() {
         super(FXML);
         clear();
