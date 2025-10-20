@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED">
+    <content>
+        <VBox fx:id="detailsContainer" spacing="12" styleClass="details-root" fillWidth="true" prefWidth="400">
+            <HBox spacing="8">
+                <Label fx:id="name" styleClass="details-name"/>
+                <Label fx:id="favorite" styleClass="favorite-icon" visible="false" managed="false"/>
+            </HBox>
+
+            <VBox spacing="6" styleClass="details-card">
+                <Label text="Phone:" styleClass="dim"/>
+                <Label fx:id="phone"/>
+
+                <Label text="Email:" styleClass="dim"/>
+                <Label fx:id="email"/>
+
+                <Label text="Address:" styleClass="dim"/>
+                <Label fx:id="address" wrapText="true"/>
+
+                <Label text="Faculties:" styleClass="dim"/>
+                <FlowPane fx:id="faculties" hgap="6" vgap="6"/>
+
+                <Label text="Modules:" styleClass="dim"/>
+                <FlowPane fx:id="modules" hgap="6" vgap="6"/>
+
+                <Label text="Tags:" styleClass="dim"/>
+                <FlowPane fx:id="tags" hgap="6" vgap="6"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
