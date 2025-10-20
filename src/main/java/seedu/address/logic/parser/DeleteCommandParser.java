@@ -44,7 +44,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 Index index = ParserUtil.parseIndex(args.trim()); // trim() to handle potential surrounding spaces
                 return new DeleteCommand(index);
             } catch (ParseException pe) {
-                 // Throw format error if neither criteria nor valid index is provided
+                // Throw format error if neither criteria nor valid index is provided
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
             }
@@ -85,7 +85,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         if (predicates.isEmpty()) {
-             // Should not happen if isAnyPrefixPresent check passed, but as a safeguard
+            // Should not happen if isAnyPrefixPresent check passed, but as a safeguard
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 

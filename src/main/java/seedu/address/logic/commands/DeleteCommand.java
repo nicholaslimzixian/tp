@@ -92,7 +92,7 @@ public class DeleteCommand extends Command {
     private CommandResult executeDeleteByPredicate(Model model) {
         Predicate<Person> combinedPredicate = predicates.stream()
                                                         .reduce(Predicate::and)
-                                                        .orElse(x -> true); // Default to true if list is empty (shouldn't happen)
+                                                        .orElse(x -> true);
 
         List<Person> personsToDelete = model.getAddressBook().getPersonList().stream()
                                               .filter(combinedPredicate) // Use the combined predicate
