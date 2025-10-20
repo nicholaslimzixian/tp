@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fitToWidth="true"
-            hbarPolicy="NEVER"
-            vbarPolicy="AS_NEEDED">
-    <content>
-        <VBox fx:id="detailsContainer" spacing="12" styleClass="details-root" fillWidth="true" prefWidth="400">
-            <HBox spacing="8">
-                <Label fx:id="name" styleClass="details-name"/>
-                <Label fx:id="favorite" styleClass="favorite-icon" visible="false" managed="false"/>
-            </HBox>
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="details-scroll">
+  <content>
+    <VBox fx:id="detailsContainer" spacing="14" styleClass="details-root" fillWidth="true" prefWidth="400">
+        <!-- Name and favorite -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label fx:id="name" styleClass="details-name"/>
+            <Label fx:id="favorite" styleClass="favorite_star" visible="false" managed="false" text="★"/>
+        </HBox>
 
-            <VBox spacing="6" styleClass="details-card">
-                <Label text="Phone:" styleClass="dim"/>
-                <Label fx:id="phone"/>
+        <VBox spacing="10" styleClass="details-card">
+            <Label text="Contact Details" styleClass="details-section-title"/> 
 
-                <Label text="Email:" styleClass="dim"/>
-                <Label fx:id="email"/>
+                <!-- Contact fields -->
+                <VBox spacing="8">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="🏢" styleClass="icon"/>
+                        <Label fx:id="address" wrapText="true" styleClass="detail-person-text"/>
+                    </HBox>
 
-                <Label text="Address:" styleClass="dim"/>
-                <Label fx:id="address" wrapText="true"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="📞" styleClass="icon"/>
+                        <Label fx:id="phone" styleClass="detail-person-text"/>
+                    </HBox>
 
-                <Label text="Faculties:" styleClass="dim"/>
-                <FlowPane fx:id="faculties" hgap="6" vgap="6"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="✉" styleClass="icon"/>
+                        <Label fx:id="email" styleClass="detail-person-text"/>
+                    </HBox>
+                </VBox>
 
-                <Label text="Modules:" styleClass="dim"/>
-                <FlowPane fx:id="modules" hgap="6" vgap="6"/>
+                <!-- Divider -->
+                <Region styleClass="details-divider" VBox.vgrow="NEVER" />
 
-                <Label text="Tags:" styleClass="dim"/>
-                <FlowPane fx:id="tags" hgap="6" vgap="6"/>
+                <!-- Chips for faculties, modules, and tags -->
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Faculties:" styleClass="icon"/>
+                    <FlowPane fx:id="faculties" hgap="6" vgap="6"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Modules:" styleClass="icon"/>
+                    <FlowPane fx:id="modules" hgap="6" vgap="6"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Tags:" styleClass="icon"/>
+                    <FlowPane fx:id="tags" hgap="6" vgap="6"/>
+                </HBox>
             </VBox>
-        </VBox>
-    </content>
+    </VBox>
+  </content>
 </ScrollPane>
