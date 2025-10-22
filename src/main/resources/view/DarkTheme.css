@@ -393,3 +393,57 @@
 #cardPane.favorite-card .favorite_star {
     -fx-text-fill: #FFD700 !important;
 }
+
+.details-right-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.details-right-pane > .viewport {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.details-root {
+    -fx-padding: 16;
+}
+
+.details-name {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e8eaed;
+}
+
+.details-card {
+    -fx-background-color: #2f3337;
+    -fx-background-radius: 12;
+    -fx-padding: 14;
+}
+
+.details-section-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e8eaed;
+    -fx-padding: 0 0 4 0;
+}
+
+.details-person-text {
+    -fx-text-fill: rgba(255, 255, 255, 0.90);
+}
+
+.details-divider {
+    -fx-background-color: derive(#1d1d1d, 35%);
+    /* subtle gray divider line */
+    -fx-min-height: 1;
+    -fx-max-height: 1;
+    -fx-pref-height: 1;
+    -fx-opacity: 0.7;
+    -fx-padding: 8 0 8 0;
+}
+
+.icon {
+    -fx-text-fill: #e8eaed;
+}
+
+.dim-text {
+    -fx-text-fill: rgba(223, 223, 223, 0.75);
+    -fx-opacity: 0.5;
+}
