@@ -16,7 +16,7 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
 
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" fillWidth="true" minHeight="105" GridPane.columnIndex="0">
       <padding>
         <Insets top="5" right="5" bottom="5" left="15" />
       </padding>
@@ -34,21 +34,27 @@
       </HBox>
 
       <!-- Row 2: Address -->
-      <HBox spacing="8" alignment="CENTER_LEFT">
-        <Label text="🏢" styleClass="icon"/>
-        <Label fx:id="address" wrapText="true" styleClass="dim-text"/>
+      <HBox spacing="8" alignment="CENTER_LEFT" fillHeight="true">
+        <Label text="🏢" styleClass="icon"
+           minWidth="20" prefWidth="20" maxWidth="20"/>
+        <Label fx:id="address" wrapText="true" textOverrun="CLIP"
+           styleClass="dim-text" HBox.hgrow="ALWAYS"/>
       </HBox>
 
       <!-- Row 3: Phone -->
-      <HBox spacing="8" alignment="CENTER_LEFT">
-        <Label text="☎" styleClass="icon"/>
-        <Label fx:id="phone" styleClass="dim-text"/>
+      <HBox spacing="8" alignment="CENTER_LEFT" fillHeight="true">
+        <Label text="☎" styleClass="icon"
+           minWidth="20" prefWidth="20" maxWidth="20"/>
+        <Label fx:id="phone" wrapText="true" textOverrun="CLIP"
+           styleClass="dim-text" HBox.hgrow="ALWAYS"/>
       </HBox>
 
       <!-- Row 4: Email -->
-      <HBox spacing="8" alignment="CENTER_LEFT">
-        <Label text="✉" styleClass="icon"/>
-        <Label fx:id="email" styleClass="dim-text"/>
+      <HBox spacing="8" alignment="CENTER_LEFT" fillHeight="true">
+        <Label text="✉" styleClass="icon"
+           minWidth="20" prefWidth="20" maxWidth="20"/>
+        <Label fx:id="email" wrapText="true" textOverrun="CLIP"
+           styleClass="dim-text" HBox.hgrow="ALWAYS"/>
       </HBox>
     </VBox>
   </GridPane>

@@ -4,8 +4,8 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 
@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
  * Panel on the right side that displays full contact details for a selected
  * Person.
  */
-public class ContactDetailsPanel extends UiPart<ScrollPane> {
+public class ContactDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "ContactDetailsPanel.fxml";
 

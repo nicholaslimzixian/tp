@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -24,6 +25,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final double SPLITPANE_RATIO = 0.20;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -35,6 +37,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ContactDetailsPanel contactDetailsPanel;
+
+    @FXML
+    private SplitPane mainSplit;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -130,6 +135,14 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        mainSplit.setDividerPositions(SPLITPANE_RATIO);
+
+        javafx.application.Platform.runLater(() -> {
+            javafx.scene.control.SplitPane.Divider divider = mainSplit.getDividers().get(0);
+            divider.positionProperty().addListener((obs, oldV, newV) -> divider.setPosition(SPLITPANE_RATIO));
+            mainSplit.lookupAll(".split-pane-divider").forEach(node -> node.setMouseTransparent(true));
+        });
     }
 
     /**

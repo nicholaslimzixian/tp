@@ -50,7 +50,7 @@
         </StackPane>
 
         <!-- CENTER: SplitPane (LEFT list, RIGHT contact details) -->
-        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.45">
+        <SplitPane fx:id="mainSplit" VBox.vgrow="ALWAYS" dividerPositions="0.20">
           <items>
             <!-- LEFT: Person list (existing content preserved) -->
             <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
@@ -61,7 +61,7 @@
             </VBox>
 
             <!-- RIGHT: new details panel placeholder -->
-            <StackPane fx:id="contactDetailsPlaceholder" styleClass="pane-with-border">
+            <StackPane fx:id="contactDetailsPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>

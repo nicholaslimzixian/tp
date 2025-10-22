@@ -394,11 +394,11 @@
     -fx-text-fill: #FFD700 !important;
 }
 
-.details-scroll {
+.details-right-pane {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.details-scroll > .viewport {
+.details-right-pane > .viewport {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
@@ -425,8 +425,8 @@
     -fx-padding: 0 0 4 0;
 }
 
-.detail-person-text {
-    -fx-text-fill: rgba(255, 255, 255, 0.75);
+.details-person-text {
+    -fx-text-fill: rgba(255, 255, 255, 0.90);
 }
 
 .details-divider {
